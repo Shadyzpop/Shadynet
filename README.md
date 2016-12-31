@@ -43,7 +43,7 @@ a warper from xNet, modified to work with heavy requests and managed responses.
 
 <b>HttpResponse:</b>
 <ul>
-<li>HTMLparse: <em>Parses</em> the HTML attribute inside the received Html code, <em>Returns</em> the requested data from the input.</li>
+<li>HTMLparse: <em>Parses</em> the HTML attribute inside the received Html code, <em>Returns</em> the requested data from the input (Experimental).</li>
 <li>Between  : Gets a string inside the <em>HTML</em> source code that is between two(<em>Words,Chars,Numbers</em>) inputs.</li>
 <li>cLogger  : Stands for "Console Logger" in which logs all the headers of the requests and can also output the source.</li>
 <li>Logger   : Same as <i>cLogger</i> But this function requires a StringBuilder to output.</li>
