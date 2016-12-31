@@ -1,4 +1,4 @@
-﻿
+
 namespace Shadynet
 {
     /// <summary>
@@ -10,6 +10,7 @@ namespace Shadynet
         HEAD,
         DELETE,
         POST,
-        PUT
+        PUT,
+        OPTIONS
     }
 }
