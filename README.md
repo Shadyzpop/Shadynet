@@ -85,7 +85,7 @@ using (var request = new HttpRequest())
     string content = request.Get("google.com", urlParams).ToString();
     
     // Can also be used as following which does the same thing as above but it works with raw parameters.
-   //string content = request.Get("google.com/?param1=value1&=value2");
+   //string content = request.Get("google.com/?param1=value1&suth=value2");
    
     // Another way to add the parameters into a request container as following which does the same job as "urlParams".
    //request.AddUrlParam("param1", "value1").AddUrlParam("param2", "value2");
