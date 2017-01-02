@@ -1455,7 +1455,6 @@ namespace Shadynet
 
             return Raw(HttpMethod.POST, address, content);
         }
-
         #endregion
 
         #region Raw
@@ -1582,6 +1581,62 @@ namespace Shadynet
             _temporaryUrlParams[name] = value;
 
             return this;
+        }
+
+        /// <summary>
+        /// Parses Raw Paremeters and adds them into the <see langword="RequestParams"/> container to be used in the request.
+        /// </summary>
+        /// <param name="postdata">Raw post parameters.</param>
+        public HttpRequest ParsePostData(string postdata)
+        {
+            #region Check settings
+
+            if (postdata == null)
+            {
+                throw new ArgumentNullException("postdata");
+            }
+
+            if (postdata.Length == 0)
+            {
+                throw ExceptionHelper.EmptyString("postdata");
+            }
+
+            if (!postdata.Contains('='))
+            {
+                throw new ArgumentException("postdata");
+            }
+            #endregion
+
+            if (_temporaryParams == null)
+            {
+                _temporaryParams = new RequestParams();
+            }
+
+            try
+            {
+                if (postdata.Contains("&"))
+                {
+                    string[] datastruct = postdata.Split('&');
+                    foreach (var data in datastruct)
+                    {
+                        var key = data.Split('=')[0].Trim();
+                        var value = data.Split('=')[1].Trim();
+                        _temporaryParams[key] = value;
+                    }
+                    return this;
+                }
+                else
+                {
+                    var key = postdata.Split('=')[0].Trim();
+                    var value = postdata.Split('=')[1].Trim();
+                    _temporaryParams[key] = value;
+                    return this;
+                }
+            }
+            catch
+            {
+                throw new ArgumentException("Invalid Parameters.");
+            }
         }
 
         /// <summary>

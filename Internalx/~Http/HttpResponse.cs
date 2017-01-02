@@ -536,6 +536,14 @@ namespace Shadynet
 
 
         #region Methods (open)
+        /// <summary>
+        /// Gets the content of an elemnt in the html source, for example: everything inside an html class. for example: a div element.
+        /// </summary>
+        /// <param name="classdata">Required Class name</param>
+        /// <param name="ofaclass">Subclass that exist inside the attribute</param>
+        /// <param name="ofaclassdata">the subclass data that exist inside the attribute</param>
+        /// <param name="ofanelement">the HTML class of the attributes</param>
+        /// <returns>the data inside the <see langword="classdata"/>.</returns>
         public string HTMLparse(string classdata, string ofaclass, string ofaclassdata,string ofanelement)
         {
             int i = 0;

@@ -105,48 +105,6 @@ namespace Shadynet
 
         #region Static methods (open)
         /// <summary>
-        /// Parses Raw postdata into a parameters to add as a request to the http client.
-        /// </summary>
-        /// <param name="postdata">Raw post parameters.</param>
-        /// <param name="httpclient">Http client to add the parameters to.</param>
-        public static void ParsePostData(string postdata,HttpRequest httpclient)
-        {
-            try
-            {
-                if (postdata.Contains("&"))
-                {
-                    string[] datastruct = postdata.Split('&');
-                    foreach (var data in datastruct)
-                    {
-                        var key = data.Split('=')[0].Trim();
-                        var value = data.Split('=')[1].Trim();
-                        httpclient.AddParam(key, value);
-                    }
-                }
-                else
-                {
-                    var key = postdata.Split('=')[0].Trim();
-                    var value = postdata.Split('=')[1].Trim();
-                    httpclient.AddParam(key, value);
-                }
-                IsParse = true;
-            }
-            catch {
-                throw new ArgumentException("Invalid Postdata or Bad HttpClient Given.");
-            }
-        }
-        /// <summary>
-        /// A boolean that return the status of the ParsePostData, if succeded <see langword="True"/> else <see langword="False"/>.
-        /// </summary>
-        /// <param name="postdata">Raw post parameters.</param>
-        /// <param name="httpclient">Http client to add the parameters to.</param>
-        /// <returns></returns>
-        public static bool TryParsePostData(string postdata,HttpRequest httpclient)
-        {
-            ParsePostData(postdata, httpclient);
-            return IsParse;
-        }
-        /// <summary>
         /// It encodes a string for reliable HTTP-server transfer.
         /// </summary>
         /// <param name="str">String to be encoded.</param>
