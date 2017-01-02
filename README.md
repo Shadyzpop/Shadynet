@@ -43,7 +43,7 @@ a warper from xNet, modified to work with heavy requests and managed responses.
 
 <b>HttpResponse:</b>
 <ul>
-<li>HTMLparse: <em>Parses</em> the HTML attribute inside the received Html code, <em>Returns</em> the requested data from the input.</li>
+<li>HTMLparse: <em>Parses</em> the HTML attribute inside the received Html code, <em>Returns</em> the requested data from the input (Experimental).</li>
 <li>Between  : Gets a string inside the <em>HTML</em> source code that is between two(<em>Words,Chars,Numbers</em>) inputs.</li>
 <li>cLogger  : Stands for "Console Logger" in which logs all the headers of the requests and can also output the source.</li>
 <li>Logger   : Same as <i>cLogger</i> But this function requires a StringBuilder to output.</li>
@@ -79,13 +79,13 @@ using (var request = new HttpRequest())
     
     // Adds each parameter and its value to the urlParams container.
     urlParams["param1"] = "value1";
-    urlParams["param2"] = "value2";
+    urlParams["para2"] = "value2";
     
     // Sends the "Get" request with our parameters in, and converts the message body to string.
     string content = request.Get("google.com", urlParams).ToString();
     
     // Can also be used as following which does the same thing as above but it works with raw parameters.
-   //string content = request.Get("google.com/?param1=value1&param2=value2");
+   //string content = request.Get("google.com/?param1=value1&suth=value2");
    
     // Another way to add the parameters into a request container as following which does the same job as "urlParams".
    //request.AddUrlParam("param1", "value1").AddUrlParam("param2", "value2");
