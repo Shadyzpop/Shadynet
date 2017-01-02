@@ -79,16 +79,16 @@ using (var request = new HttpRequest())
     
     // Adds each parameter and its value to the urlParams container.
     urlParams["param1"] = "value1";
-    urlParams["param2"] = "value2";
+    urlParams["key1"] = "value2";
     
     // Sends the "Get" request with our parameters in, and converts the message body to string.
     string content = request.Get("google.com", urlParams).ToString();
     
     // Can also be used as following which does the same thing as above but it works with raw parameters.
-   //string content = request.Get("google.com/?param1=value1&param2=value2");
+   //string content = request.Get("google.com/?param1=value1&key1=value2");
    
     // Another way to add the parameters into a request container as following which does the same job as "urlParams".
-   //request.AddUrlParam("param1", "value1").AddUrlParam("param2", "value2");
+   //request.AddUrlParam("param1", "value1").AddUrlParam("key1", "value2");
    
    // after each request the parameters reset so if were to make another request here the parameter used above in the "content" wont be in here anymore.
 }
