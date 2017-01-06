@@ -541,6 +541,15 @@ namespace Shadynet
 
         #region Methods (open)
         /// <summary>
+        /// Returns the data of an id (Not LINQ, just plain simple)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Returns the data of an id.</returns>
+        public string SimpleJson(string id)
+        {
+            return this.Between(string.Format("\"{0}\":\"", id), "\"");
+        }
+        /// <summary>
         /// Gets the content of an elemnt in the html source, for example: everything inside an html class. for example: a div element.
         /// </summary>
         /// <param name="classdata">Required Class name</param>
