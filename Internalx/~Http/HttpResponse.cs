@@ -57,7 +57,7 @@ namespace Shadynet
             public int Length { get; private set; }
 
             public int Position { get; private set; }
-
+            
             #endregion
 
 
@@ -469,6 +469,10 @@ namespace Shadynet
 
         #endregion
 
+        /// <summary>
+        /// Returns the time it took to get the http request.
+        /// </summary>
+        public int ConnectionTimeout { get; internal set; }
         #endregion
 
 
@@ -1281,7 +1285,7 @@ namespace Shadynet
                 cookieValue = value.Substring(separatorPos + 1,
                     (endCookiePos - separatorPos) - 1);
 
-                #region We get the time that a cookie will be valid
+                #region Cookies Expire time
 
                 int expiresPos = value.IndexOf("expires=");
 
@@ -1303,7 +1307,7 @@ namespace Shadynet
 
                     DateTime expires;
 
-                    // If the time came cookies, then remove it.
+                    // If the time came to expire, then remove it.
                     if (DateTime.TryParse(expiresStr, out expires) &&
                         expires < DateTime.Now)
                     {
@@ -1314,7 +1318,6 @@ namespace Shadynet
                 #endregion
             }
 
-            // If the cookie you want to delete.
             if (cookieValue.Length == 0 ||
                 cookieValue.Equals("deleted", StringComparison.OrdinalIgnoreCase))
             {

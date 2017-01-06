@@ -2631,6 +2631,7 @@ namespace Shadynet
 
                 #endregion
 
+                _response.ConnectionTimeout = _readWriteTimeout;
                 tcpClient.SendTimeout = _readWriteTimeout;
                 tcpClient.ReceiveTimeout = _readWriteTimeout;
             }
