@@ -60,12 +60,12 @@ a warper from xNet, modified to work with heavy requests and managed responses.
 
 <p>Get:</p>
 <pre>
-using (var request = new HttpRequest())
+using (var request = new HttpRequest("google.com"))
 {
     request.UserAgent = Http.ChromeUserAgent();
     
     // Send the request, and receive the HttpResponse in the "response"
-    HttpResponse response = request.Get("google.com");
+    HttpResponse response = request.Get("/");
     
     // Converts the http page source to string.
     string content = response.ToString();
@@ -73,22 +73,22 @@ using (var request = new HttpRequest())
 </pre>
 <p>Get with simple query:</p>
 <pre>
-using (var request = new HttpRequest())
+using (var request = new HttpRequest("google.com"))
 {
     var urlParams = new RequestParams();
     
     // Adds each parameter and its value to the urlParams container.
     urlParams["param1"] = "value1";
-    urlParams["para2"] = "value2";
+    urlParams["key1"] = "value2";
     
     // Sends the "Get" request with our parameters in, and converts the message body to string.
     string content = request.Get("google.com", urlParams).ToString();
     
     // Can also be used as following which does the same thing as above but it works with raw parameters.
-   //string content = request.Get("google.com/?param1=value1&suth=value2");
+   //string content = request.Get("/?param1=value1&key1=value2");
    
     // Another way to add the parameters into a request container as following which does the same job as "urlParams".
-   //request.AddUrlParam("param1", "value1").AddUrlParam("param2", "value2");
+   //request.AddUrlParam("param1", "value1").AddUrlParam("key1", "value2");
    
    // after each request the parameters reset so if were to make another request here the parameter used above in the "content" wont be in here anymore.
 }
@@ -96,7 +96,7 @@ using (var request = new HttpRequest())
 
 <p>Post:</p>
 <pre>
-using (var request = new HttpRequest())
+using (var request = new HttpRequest("www.site.com"))
 {
     var reqParams = new RequestParams();
 
@@ -109,8 +109,7 @@ using (var request = new HttpRequest())
     // or with a request container
  //request.AddParam("username", "admin").AddParam("password", "admin123");
  
-    string content = request.Post(
-        "www.site.com", reqParams).ToString();
+    var content = request.Post("/", reqParams);
     
     // the same applies to post request, the parameters reset after each request.
 }
@@ -118,7 +117,7 @@ using (var request = new HttpRequest())
 
 <p>Sending Multipart / form data:</p>
 <pre>
-using (var request = new HttpRequest())
+using (var request = new HttpRequest("www.microsoft.com"))
 {
     var multipartContent = new MultipartContent()
     {
@@ -132,7 +131,7 @@ using (var request = new HttpRequest())
  //       .AddField("password", "qwerty")
  //       .AddFile("file1", @"C:\windows_9_alpha.rar");
  
-    request.Post("www.microsoft.com", multipartContent).None();
+    request.Post("/", multipartContent).None();
 }
 </pre>
 
@@ -212,10 +211,10 @@ using (HttpRequest request = new HttpRequest("site.com"))
 <pre>
 try
 {
-    using (var request = new HttpRequest())
+    using (var request = new HttpRequest("site.com"))
     {
         request.Proxy = Socks5ProxyClient.Parse("127.0.0.1:1080");
-        request.Get("site.com");
+        request.Get("/");
     }
 }
 catch (HttpException ex)
