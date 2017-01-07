@@ -51,6 +51,10 @@
   <ItemGroup>
     <Compile Include="Internalx\~Extra\Cryptography.cs" />
     <Compile Include="Internalx\~Extra\GetInfo.cs" />
+    <Compile Include="Internalx\~Threading\AsyncEvent.cs" />
+    <Compile Include="Internalx\~Threading\MultiThreading.cs" />
+    <Compile Include="Internalx\~Threading\MultiThreadingProgressEventArgs.cs" />
+    <Compile Include="Internalx\~Threading\MultiThreadingRepeatEventArgs.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
