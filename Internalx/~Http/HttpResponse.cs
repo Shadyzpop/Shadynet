@@ -472,7 +472,7 @@ namespace Shadynet
         /// <summary>
         /// Returns the time it took to get the http request.
         /// </summary>
-        public int ConnectionTimeout { get; internal set; }
+        public int ConnectionTime { get; internal set; }
         #endregion
 
 

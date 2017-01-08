@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Security;
 using System.Net.Sockets;
@@ -1509,6 +1510,11 @@ namespace Shadynet
 
             #endregion
 
+            #region ConnectionTimer
+            var ConnectionTimer = Stopwatch.StartNew();
+            ConnectionTimer.Start();
+            #endregion
+
             if (!address.IsAbsoluteUri)
                 address = GetRequestAddress(BaseAddress, address);
 
@@ -1542,6 +1548,9 @@ namespace Shadynet
                     content.Dispose();
 
                 ClearRequestData();
+
+                _response.ConnectionTime = (int)ConnectionTimer.ElapsedMilliseconds;
+                ConnectionTimer.Stop();
             }
         }
 
@@ -2630,8 +2639,7 @@ namespace Shadynet
                 }
 
                 #endregion
-
-                _response.ConnectionTimeout = _readWriteTimeout;
+                
                 tcpClient.SendTimeout = _readWriteTimeout;
                 tcpClient.ReceiveTimeout = _readWriteTimeout;
             }
