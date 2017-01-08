@@ -1509,11 +1509,7 @@ namespace Shadynet
             }
 
             #endregion
-
-            #region ConnectionTimer
-            var ConnectionTimer = Stopwatch.StartNew();
-            #endregion
-
+            
             if (!address.IsAbsoluteUri)
                 address = GetRequestAddress(BaseAddress, address);
 
@@ -1536,7 +1532,9 @@ namespace Shadynet
                     content = _temporaryMultipartContent;
                 }
             }
-
+            #region ConnectionTimer
+            var ConnectionTimer = Stopwatch.StartNew();
+            #endregion
             try
             {
                 return Request(method, address, content);
