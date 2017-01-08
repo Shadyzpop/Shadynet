@@ -1512,7 +1512,6 @@ namespace Shadynet
 
             #region ConnectionTimer
             var ConnectionTimer = Stopwatch.StartNew();
-            ConnectionTimer.Start();
             #endregion
 
             if (!address.IsAbsoluteUri)
