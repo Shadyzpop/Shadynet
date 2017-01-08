@@ -671,7 +671,7 @@ namespace Shadynet
             Console.WriteLine("\r\n< Headers >\r\n");
             var head = string.Join("\r\n", _headers);
             head = head.Replace('[', '-').Replace(',', ':').Replace(']', ' ');
-            Console.WriteLine(head + "\r\n" + "ConnectionSpeed: " + ConnectionTime + "ms");
+            Console.WriteLine(head + "\r\nConnectionSpeed: " + ConnectionTime + "ms");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("< Cookies >\r\n");
             var cooki = string.Join("\r\n", _rawCookies);
@@ -699,7 +699,7 @@ namespace Shadynet
             str.AppendLine("\r\n< Headers >\r\n");
             var head = string.Join("\r\n", _headers);
             head = head.Replace('[', '-').Replace(',', ':').Replace(']', ' ');
-            str.AppendLine(head + "\r\n" + "ConnectionSpeed: " + ConnectionTime.ToString() + "ms");
+            str.AppendLine(head + "\r\nConnectionSpeed: " + ConnectionTime.ToString() + "ms");
             str.AppendLine("< Cookies > \r\n");
             var cooki = string.Join("\r\n", _rawCookies);
             cooki = cooki.Replace("[", "").Replace(",", ":").Replace(";", "\n").Replace("]", "\r\n");
