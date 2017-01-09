@@ -8,7 +8,7 @@ a warper from xNet, modified to work with heavy requests and managed responses.
 <li>protocols <em>HTTP 1.0/1.1</em>: <em>keep-alive, gzip, deflate, chunked, SSL, proxies and more</em>.</li>
 </ul>
 
-<p>Some of the features to note</p>
+<p>Some of the features to note</p><b> - OutDated - </b>
 
 <b>Proxies(<em>HTTP, Socks4(a), Socks5, Chain</em>) / ProxyHelper:</b>
 <ul>
