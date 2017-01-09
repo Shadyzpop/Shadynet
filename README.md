@@ -56,7 +56,7 @@ a warper from xNet, modified to work with heavy requests and managed responses.
 <li>Cookie       : Returns raw value of a cookie that is requested(<i>input</i>) from a url(<i>input</i>).<
 </ul>
 
-<b>Examples</b>
+<b>Examples(Old)</b>
 
 <p>Get:</p>
 <pre>
