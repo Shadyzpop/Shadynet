@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// It represents a body of the request stream.

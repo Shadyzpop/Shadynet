@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// Represents the data for the event, reports on the progress of data download.

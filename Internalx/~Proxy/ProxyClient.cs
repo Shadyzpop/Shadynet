@@ -4,7 +4,7 @@ using System.Security;
 using System.Text;
 using System.Threading;
 
-namespace Shadynet
+namespace Shadynet.Proxy
 {
     /// <summary>
     /// It represents the base class implementation to work with a proxy server.

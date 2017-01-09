@@ -1,5 +1,5 @@
 
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// HTTP-request method.

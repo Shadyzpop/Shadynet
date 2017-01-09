@@ -49,8 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Internalx\~Extra\Cryptography.cs" />
-    <Compile Include="Internalx\~Extra\GetInfo.cs" />
+    <Compile Include="Internalx\~Other\Cryptography.cs" />
+    <Compile Include="Internalx\~Other\GetInfo.cs" />
     <Compile Include="Internalx\~Threading\AsyncEvent.cs" />
     <Compile Include="Internalx\~Threading\MultiThreading.cs" />
     <Compile Include="Internalx\~Threading\MultiThreadingProgressEventArgs.cs" />
@@ -84,7 +84,7 @@
     <Compile Include="Internalx\~Http\HttpException.cs" />
     <Compile Include="Internalx\~Http\HttpRequest.cs" />
     <Compile Include="Internalx\~Http\HttpResponse.cs" />
-    <Compile Include="Internalx\~Http\Http.cs" />
+    <Compile Include="Internalx\~Http\HttpHelper.cs" />
     <Compile Include="Internalx\~Proxy\ProxyClient.cs" />
     <Compile Include="Internalx\~Proxy\ProxyType.cs" />
     <Compile Include="Internalx\~Proxy\ProxyException.cs" />

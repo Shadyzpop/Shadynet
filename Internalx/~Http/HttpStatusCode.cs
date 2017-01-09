@@ -1,5 +1,5 @@
 ﻿
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// Specifies the HTTP status codes.

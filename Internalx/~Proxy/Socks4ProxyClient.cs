@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace Shadynet
+namespace Shadynet.Proxy
 {
     /// <summary>
     /// Represents the client proxy Socks4.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// It represents the body of the request as a query parameter.
@@ -28,7 +28,7 @@ namespace Shadynet
 
             #endregion
 
-            string queryString = Http.ToPostQueryString(content, dontEscape, encoding);
+            string queryString = HttpHelper.ToPostQueryString(content, dontEscape, encoding);
 
             _content = Encoding.ASCII.GetBytes(queryString);
             _offset = 0;

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shadynet.Http;
 
-namespace Shadynet.Miscs
+namespace Shadynet.Other
 {
 
     /// <summary>
@@ -59,9 +60,9 @@ namespace Shadynet.Miscs
             string strSource = "";
             try
             {
-                using (HttpRequest rq = new HttpRequest())
+                using (Http.HttpRequest rq = new Http.HttpRequest())
                 {
-                    rq.UserAgent = Http.ChromeUserAgent();
+                    rq.UserAgent = HttpHelper.ChromeUserAgent();
                     strSource = rq.Get(URL).ToString();
                 }
                 int Start, End;
@@ -96,7 +97,7 @@ namespace Shadynet.Miscs
             {
                 using (HttpRequest rq = new HttpRequest())
                 {
-                    rq.UserAgent = Http.ChromeUserAgent();
+                    rq.UserAgent = HttpHelper.ChromeUserAgent();
                     string strSource = rq.Get(URL).Cookies.ToString() + ";";
                     string res = Betweenstring(strSource, Cookie + "=", ";");
                     return res;

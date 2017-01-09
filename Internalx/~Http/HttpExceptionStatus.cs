@@ -1,5 +1,5 @@
 ﻿
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// It defines the state of the class <see cref="HttpException"/>.

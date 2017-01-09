@@ -5,9 +5,9 @@ using System.IO.Compression;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using Shadynet.Miscs;
+using Shadynet.Other;
 
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// It represents the class HTTP to download a response from the HTTP-server.
@@ -524,7 +524,7 @@ namespace Shadynet
         {
             get
             {
-                return this[Http.Headers[header]];
+                return this[HttpHelper.Headers[header]];
             }
         }
 
@@ -549,112 +549,6 @@ namespace Shadynet
         public string SimpleJson(string id)
         {
             return this.Between(string.Format("\"{0}\":\"", id), "\"");
-        }
-
-        /// <summary>
-        /// Gets the content of a class in the html source, for example: HTMLparse("href" the class that holds the data we want, "id" exist within the same element, "Submit" the data of the id, "Button" the element that hold the data , 2 type of the data, true -return the retries to console);
-        /// </summary>
-        /// <param name="ClassDataReturn">Required Class name</param>
-        /// <param name="CoClassName">Subclass that exist inside the attribute</param>
-        /// <param name="CoClassData">the subclass data that exist inside the attribute</param>
-        /// <param name="Element">the HTML class of the attributes</param>
-        /// <param name="ElementType">the type of ending in the Element [0-2] -> { 0 = div/> | 1 = /> | 2= > }</param>
-        /// <param name="ReturnRetries">Return int represents the retried amount to get the classdata.</param>
-        /// <param name="PainText">Return the text inside the Element. { Works only with type 0 }</param>
-        /// <returns>the data inside the <see langword="ClassDataReturn"/>.</returns>
-        public string HTMLparse(string ClassDataReturn, string CoClassName, string CoClassData, string Element, int ElementType = 0, bool ReturnRetries = false)
-        {
-            #region Settings
-            int i = 0;
-            bool found = false;
-            string data = string.Empty;
-            StringBuilder source = new StringBuilder();
-            source.Append(ToString());
-            #endregion
-
-            #region Check parameter
-            if (!source.ToString().Contains(ClassDataReturn))
-                throw new ArgumentException("ClassDataReturn");
-
-            if (!source.ToString().Contains(CoClassName))
-                throw new ArgumentException("CoClassName");
-
-            if (!source.ToString().Contains(CoClassData))
-                throw new ArgumentException("CoClassData");
-
-            if (!source.ToString().Contains(CoClassData))
-                throw new ArgumentException("CoClassData");
-
-            if (!source.ToString().Contains(Element))
-                throw new ArgumentException("Element");
-            #endregion
-            while (!found)
-            {
-                #region CheckElement
-                if (!source.ToString().Contains(Element))
-                    throw new Exception("Not Found");
-
-                string ElementResponse = string.Empty;
-                string ElementLeft = "<" + Element;
-                string ElementRight = string.Empty;
-                switch (ElementType)
-                {
-                    case 0:
-                        ElementRight = "</" + Element + ">";
-                        break;
-                    case 1:
-                        ElementRight = "/>";
-                        break;
-                    case 2:
-                        ElementRight = ">";
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException("ElementType");
-                        break;
-                }
-
-                ElementResponse = GetInfo.Betweenstring(source.ToString(),ElementLeft, ElementRight);
-                
-                if (string.IsNullOrEmpty(ElementResponse))
-                    throw new Exception("Not Found");
-                #endregion
-
-                #region ClassesCheckandSets
-                if (!ElementResponse.Contains(ClassDataReturn) || !ElementResponse.Contains(CoClassName) || !ElementResponse.Contains(CoClassData))
-                {
-                    int Leftindex = source.ToString().IndexOf(ElementLeft);
-                    int Rightindex = source.ToString().IndexOf(ElementRight);
-                    if (i != -1)
-                    {
-                        source.Remove(Leftindex, Rightindex);
-                    }
-                    goto End;
-                }
-                string ClassDataLeft = ClassDataReturn + "=\"";
-                string CoClassLeft = CoClassName + "=\"";
-                string ClassRight = "\"";
-                string CoClassResponse = GetInfo.Betweenstring(ElementResponse, CoClassLeft, ClassRight);
-
-                #endregion
-
-                #region MainCheck
-
-                if (CoClassResponse == CoClassData)
-                {
-                    data = GetInfo.Betweenstring(ElementResponse, ClassDataLeft, ClassRight);
-                    found = true;
-                }
-                else
-                    throw new Exception("Not Found");
-
-                #endregion
-                End:
-                i++;
-                Thread.Sleep(50);
-            }
-            if (ReturnRetries)
-                Console.WriteLine(i);
-            return data;
         }
 
         /// <summary>
@@ -1157,7 +1051,7 @@ namespace Shadynet
         /// <returns>Value <see langword="true"/>, if the specified HTTP-header contains, or value <see langword="false"/>.</returns>
         public bool ContainsHeader(HttpHeader header)
         {
-            return ContainsHeader(Http.Headers[header]);
+            return ContainsHeader(HttpHelper.Headers[header]);
         }
 
         /// <summary>
@@ -1268,7 +1162,7 @@ namespace Shadynet
 
                     throw exception;
                 }
-                else if (startingLine == Http.NewLine)
+                else if (startingLine == HttpHelper.NewLine)
                 {
                     continue;
                 }
@@ -1284,7 +1178,7 @@ namespace Shadynet
             if (statusCode.Length == 0)
             {
                 // If the server does not return Reason Phrase
-                statusCode = startingLine.Substring(" ", Http.NewLine);
+                statusCode = startingLine.Substring(" ", HttpHelper.NewLine);
             }
 
             if (version.Length == 0 || statusCode.Length == 0)
@@ -1384,7 +1278,7 @@ namespace Shadynet
                 string header = _receiverHelper.ReadLine();
 
                 // If you reach the end of the headers.
-                if (header == Http.NewLine)
+                if (header == HttpHelper.NewLine)
                     return;
 
                 // We are looking for a position between the name and header value.
@@ -1600,7 +1494,7 @@ namespace Shadynet
                 string line = _receiverHelper.ReadLine();
 
                 // If you reach the end of the block.
-                if (line == Http.NewLine)
+                if (line == HttpHelper.NewLine)
                     continue;
 
                 line = line.Trim(' ', '\r', '\n');
@@ -1725,7 +1619,7 @@ namespace Shadynet
                     string line = _receiverHelper.ReadLine();
 
                     // If you reach the end of the block.
-                    if (line == Http.NewLine)
+                    if (line == HttpHelper.NewLine)
                         continue;
 
                     line = line.Trim(' ', '\r', '\n');

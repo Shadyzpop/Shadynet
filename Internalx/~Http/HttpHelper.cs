@@ -6,12 +6,12 @@ using System.Text;
 using Microsoft.Win32;
 using System.Net.Security;
 
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// It is a static class, designed to aid in working with the HTTP-report.
     /// </summary>
-    public static class Http
+    public static class HttpHelper
     {
         #region Constants (open)
 
@@ -97,7 +97,7 @@ namespace Shadynet
         #endregion
 
 
-        static Http()
+        static HttpHelper()
         {
             AcceptAllCertificationsCallback = new RemoteCertificateValidationCallback(AcceptAllCertifications);
         }

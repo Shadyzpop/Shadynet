@@ -1,4 +1,4 @@
-﻿namespace Shadynet
+﻿namespace Shadynet.Proxy
 {
     /// <summary>
     /// enum represents a proxy-type

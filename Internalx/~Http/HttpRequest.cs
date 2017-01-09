@@ -11,8 +11,9 @@ using System.Security;
 using System.Security.Authentication;
 using System.Text;
 using System.Threading;
+using Shadynet.Proxy;
 
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// It represents a class that is designed to send HTTP-server requests.
@@ -818,11 +819,11 @@ namespace Shadynet
         {
             get
             {
-                return this[Http.Headers[header]];
+                return this[HttpHelper.Headers[header]];
             }
             set
             {
-                this[Http.Headers[header]] = value;
+                this[HttpHelper.Headers[header]] = value;
             }
         }
 
@@ -1516,7 +1517,7 @@ namespace Shadynet
             if (_temporaryUrlParams != null)
             {
                 var uriBuilder = new UriBuilder(address);
-                uriBuilder.Query = Http.ToQueryString(_temporaryUrlParams, true);
+                uriBuilder.Query = HttpHelper.ToQueryString(_temporaryUrlParams, true);
 
                 address = uriBuilder.Uri;
             }
@@ -1592,8 +1593,8 @@ namespace Shadynet
         /// <summary>
         /// Parses Raw Paremeters and adds them into the <see langword="RequestParams"/> container to be used in the request.
         /// </summary>
-        /// <param name="postdata">Raw post parameters.</param>
-        public HttpRequest ParsePostData(string postdata)
+        /// <param name="postdata">Raw parameters.</param>
+        public HttpRequest ParseAddParam(string postdata)
         {
             #region Check settings
 
@@ -2094,7 +2095,7 @@ namespace Shadynet
         /// <remarks>This HTTP-header will be erased after the first request.</remarks>
         public HttpRequest AddHeader(HttpHeader header, string value)
         {
-            AddHeader(Http.Headers[header], value);
+            AddHeader(HttpHelper.Headers[header], value);
 
             return this;
         }
@@ -2166,7 +2167,7 @@ namespace Shadynet
         /// <returns>value <see langword="true"/>, if the HTTP-header contains the specified, otherwise the value <see langword="false"/>.</returns>
         public bool ContainsHeader(HttpHeader header)
         {
-            return ContainsHeader(Http.Headers[header]);
+            return ContainsHeader(HttpHelper.Headers[header]);
         }
 
         /// <summary>
@@ -2669,7 +2670,7 @@ namespace Shadynet
 
                     if (SslCertificateValidatorCallback == null)
                     {
-                        sslStream = new SslStream(_connectionNetworkStream, false, Http.AcceptAllCertificationsCallback);
+                        sslStream = new SslStream(_connectionNetworkStream, false, HttpHelper.AcceptAllCertificationsCallback);
                     }
                     else
                     {

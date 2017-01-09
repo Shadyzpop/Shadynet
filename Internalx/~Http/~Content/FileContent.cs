@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// It represents the body of the request as a data stream from a particular file.
@@ -54,7 +54,7 @@ namespace Shadynet
             _bufferSize = bufferSize;
             _initialStreamPosition = 0;
 
-            _contentType = Http.DetermineMediaType(
+            _contentType = HttpHelper.DetermineMediaType(
                 Path.GetExtension(pathToContent));
         }
     }

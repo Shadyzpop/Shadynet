@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shadynet
+namespace Shadynet.Proxy
 {
     internal static class ProxyHelper
     {

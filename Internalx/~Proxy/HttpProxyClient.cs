@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
-using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using Shadynet.Http;
 
-namespace Shadynet
+namespace Shadynet.Proxy
 {
     /// <summary>
     /// It is the client for the HTTP proxy server.
@@ -16,7 +16,7 @@ namespace Shadynet
 
         private const int BufferSize = 50;
         private const int DefaultPort = 8080;
-
+        private const string NewLine = "\r\n";
         #endregion
 
 
@@ -236,7 +236,7 @@ namespace Shadynet
             }
 
             // Select the status bar.   Example: HTTP/1.1 200 OK\r\n
-            string strStatus = response.Substring(" ", Http.NewLine);
+            string strStatus = response.Substring(" ", NewLine);
 
             int simPos = strStatus.IndexOf(' ');
 

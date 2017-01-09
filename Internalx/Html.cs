@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using Shadynet.Other;
 
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// It is a static class, designed to aid in working with HTML and other text data.
@@ -25,6 +28,116 @@ namespace Shadynet
 
 
         #region Static methods (open)
+        /// <summary>
+        /// Gets the content of a class in the html source, for example: HTMLparse("href" the class that holds the data we want, "id" exist within the same element, "Submit" the data of the id, "Button" the element that hold the data , 2 type of the data, true -return the retries to console);
+        /// </summary>
+        /// <param name="Response">Response of the current request</param>
+        /// <param name="ClassDataReturn">Required Class name</param>
+        /// <param name="CoClassName">Subclass that exist inside the attribute</param>
+        /// <param name="CoClassData">the subclass data that exist inside the attribute</param>
+        /// <param name="Element">the HTML class of the attributes</param>
+        /// <param name="ElementType">the type of ending in the Element [0-2] -> { 0 = div/> | 1 = /> | 2= > }</param>
+        /// <param name="ReturnRetries">Return int represents the retried amount to get the classdata.</param>
+        /// <param name="PainText">Return the text inside the Element. { Works only with type 0 }</param>
+        /// <returns>the data inside the <see langword="ClassDataReturn"/>.</returns>
+        public static string HTMLparse(HttpResponse Response, string ClassDataReturn, string CoClassName, string CoClassData, string Element, int ElementType = 0, bool ReturnRetries = false)
+        {
+            #region Settings
+            if (string.IsNullOrEmpty(Response.ToString()) || Response.ContentLength < 1)
+                throw new ArgumentNullException("Response");
+
+            int i = 0;
+            bool found = false;
+            string data = string.Empty;
+            StringBuilder source = new StringBuilder();
+            source.Append(Response.ToString());
+            #endregion
+
+            #region Check parameter
+            if (!source.ToString().Contains(ClassDataReturn))
+                throw new ArgumentException("ClassDataReturn");
+
+            if (!source.ToString().Contains(CoClassName))
+                throw new ArgumentException("CoClassName");
+
+            if (!source.ToString().Contains(CoClassData))
+                throw new ArgumentException("CoClassData");
+
+            if (!source.ToString().Contains(CoClassData))
+                throw new ArgumentException("CoClassData");
+
+            if (!source.ToString().Contains(Element))
+                throw new ArgumentException("Element");
+            #endregion
+
+            while (!found)
+            {
+                #region CheckElement
+                if (!source.ToString().Contains(Element))
+                    throw new Exception("Not Found");
+
+                string ElementResponse = string.Empty;
+                string ElementLeft = "<" + Element;
+                string ElementRight = string.Empty;
+                switch (ElementType)
+                {
+                    case 0:
+                        ElementRight = "</" + Element + ">";
+                        break;
+                    case 1:
+                        ElementRight = "/>";
+                        break;
+                    case 2:
+                        ElementRight = ">";
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("ElementType");
+                        break;
+                }
+
+                ElementResponse = GetInfo.Betweenstring(source.ToString(), ElementLeft, ElementRight);
+
+                if (string.IsNullOrEmpty(ElementResponse))
+                    throw new Exception("Not Found");
+                #endregion
+
+                #region ClassesCheckandSets
+                if (!ElementResponse.Contains(ClassDataReturn) || !ElementResponse.Contains(CoClassName) || !ElementResponse.Contains(CoClassData))
+                {
+                    int Leftindex = source.ToString().IndexOf(ElementLeft);
+                    int Rightindex = source.ToString().IndexOf(ElementRight);
+                    if (i != -1)
+                    {
+                        source.Remove(Leftindex, Rightindex);
+                    }
+                    goto End;
+                }
+                string ClassDataLeft = ClassDataReturn + "=\"";
+                string CoClassLeft = CoClassName + "=\"";
+                string ClassRight = "\"";
+                string CoClassResponse = GetInfo.Betweenstring(ElementResponse, CoClassLeft, ClassRight);
+
+                #endregion
+
+                #region MainCheck
+
+                if (CoClassResponse == CoClassData)
+                {
+                    data = GetInfo.Betweenstring(ElementResponse, ClassDataLeft, ClassRight);
+                    found = true;
+                }
+                else
+                    throw new Exception("Not Found");
+
+                #endregion
+                End:
+                i++;
+                Thread.Sleep(50);
+            }
+            if (ReturnRetries)
+                Console.WriteLine(i);
+            return data;
+        }
 
         /// <summary>
         /// Replaces in a string HTML-entities to represent their characters.

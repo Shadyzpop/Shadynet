@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Shadynet
+namespace Shadynet.Http
 {
     /// <summary>
     /// It represents the body of the request in the form of composite contents.
@@ -194,7 +194,7 @@ namespace Shadynet
 
             #endregion
 
-            content.ContentType = Http.DetermineMediaType(
+            content.ContentType = HttpHelper.DetermineMediaType(
                 Path.GetExtension(fileName));
 
             var element = new Element()

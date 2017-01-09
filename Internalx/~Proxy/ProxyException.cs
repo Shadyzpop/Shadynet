@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
-namespace Shadynet
+namespace Shadynet.Proxy
 {
     /// <summary>
     /// The exception that is thrown when an error occurs when using a proxy.
