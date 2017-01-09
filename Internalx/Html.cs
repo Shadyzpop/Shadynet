@@ -31,7 +31,7 @@ namespace Shadynet.Http
         /// <summary>
         /// Gets the content of a class in the html source, for example: HTMLparse("href" the class that holds the data we want, "id" exist within the same element, "Submit" the data of the id, "Button" the element that hold the data , 2 type of the data, true -return the retries to console);
         /// </summary>
-        /// <param name="Response">Response of the current request</param>
+        /// <param name="HtmlBody">Response of the current request</param>
         /// <param name="ClassDataReturn">Required Class name</param>
         /// <param name="CoClassName">Subclass that exist inside the attribute</param>
         /// <param name="CoClassData">the subclass data that exist inside the attribute</param>
@@ -40,20 +40,20 @@ namespace Shadynet.Http
         /// <param name="ReturnRetries">Return int represents the retried amount to get the classdata.</param>
         /// <param name="PainText">Return the text inside the Element. { Works only with type 0 }</param>
         /// <returns>the data inside the <see langword="ClassDataReturn"/>.</returns>
-        public static string HTMLparse(HttpResponse Response, string ClassDataReturn, string CoClassName, string CoClassData, string Element, int ElementType = 0, bool ReturnRetries = false)
+        public static string HTMLparse(string HtmlBody, string ClassDataReturn, string CoClassName, string CoClassData, string Element, int ElementType = 0, bool ReturnRetries = false)
         {
             #region Settings
-            if (string.IsNullOrEmpty(Response.ToString()) || Response.ContentLength < 1)
-                throw new ArgumentNullException("Response");
-
             int i = 0;
             bool found = false;
             string data = string.Empty;
             StringBuilder source = new StringBuilder();
-            source.Append(Response.ToString());
+            source.Append(HtmlBody);
             #endregion
 
             #region Check parameter
+            if (string.IsNullOrEmpty(HtmlBody))
+                throw new ArgumentNullException("HtmlBody");
+
             if (!source.ToString().Contains(ClassDataReturn))
                 throw new ArgumentException("ClassDataReturn");
 
