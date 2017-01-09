@@ -8,7 +8,7 @@ a warper from xNet, modified to work with heavy requests and managed responses.
 <li>protocols <em>HTTP 1.0/1.1</em>: <em>keep-alive, gzip, deflate, chunked, SSL, proxies and more</em>.</li>
 </ul>
 
-<p>Donate Bitcoin: 1Md3sNARxTRVzKrvBgT5ZC8KAabPVfSZkg</p>
+<b><p>Donate Bitcoin: 1Md3sNARxTRVzKrvBgT5ZC8KAabPVfSZkg</p></b>
 
 <p>Some of the features to note<em> - OutDated - </em></p>
 
