@@ -1,6 +1,5 @@
 # Shadynet
-a warper from xNet, modified to work with heavy requests and managed responses.
-
+xNet Warper
 
 <p>Shadynet - a class library for .NET Framework which works with:</p>
 <ul>
