@@ -111,7 +111,7 @@ using Shadynet.Other;
 <pre>
 using (var request = new HttpRequest("google.com"))
 {
-    request.UserAgent = Http.ChromeUserAgent();
+    request.UserAgent = HttpHelper.ChromeUserAgent();
     
     // Send the request, and receive the HttpResponse in the "response"
     HttpResponse response = request.Get("/");
@@ -220,7 +220,7 @@ using (var request = new HttpRequest("site.com"))
     request.AddHeader(HttpHeader.Referer, "http://site.com");
     
     // UserAgents can be generated from the <i>Http</i> Class which generates most common used browsers useragents such as chrome.
-    request.UserAgent = Http.ChromeUserAgent();
+    request.UserAgent = HttpHelper.ChromeUserAgent();
     
     // allows auto redirect and takes only boolean values, default is true
     request.AllowAutoRedirect = true;
