@@ -1,7 +1,13 @@
 # Shadynet
 xNet Warper
 
-<p>Shadynet - a class library for .NET Framework which works with:</p>
+<blockquote>
+<p><g-emoji alias="heavy_check_mark" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2714.png" ios-version="6.0">✔️</g-emoji> <strong>Shadynet</strong> — Class Library for .NET FrameWork.</p>
+</blockquote>
+
+[![travis build](https://img.shields.io/travis/Shadyzpop/Shadynet.svg?style=flat-square)](https://travis-ci.org/Shadyzpop/Shadynet)
+
+<p>Supports the following</p>
 <ul>
 <li>proxy servers: <em>HTTP, Socks4(a), Socks5, Chain</em>.</li>
 <li>protocols <em>HTTP 1.0/1.1</em>: <em>keep-alive, gzip, deflate, chunked, SSL, proxies and more</em>.</li>
