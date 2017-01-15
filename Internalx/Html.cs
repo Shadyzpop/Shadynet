@@ -28,6 +28,28 @@ namespace Shadynet.Http
 
 
         #region Static methods (open)
+        public static string HtmlToPlainText(string Html)
+        {
+            const string tagWhiteSpace = @"(>|$)(\W|\n|\r)+<";
+            const string stripFormatting = @"<[^>]*(>|$)";
+            const string lineBreak = @"<(br|BR)\s{0,1}\/{0,1}>";
+            var lineBreakRegex = new Regex(lineBreak, RegexOptions.Multiline);
+            var stripFormattingRegex = new Regex(stripFormatting, RegexOptions.Multiline);
+            var tagWhiteSpaceRegex = new Regex(tagWhiteSpace, RegexOptions.Multiline);
+
+            var text = Html;
+            //Decode html specific characters
+            text = System.Net.WebUtility.HtmlDecode(text);
+            //Remove tag whitespace/line breaks
+            text = tagWhiteSpaceRegex.Replace(text, "><");
+            //Replace <br /> with line breaks
+            text = lineBreakRegex.Replace(text, Environment.NewLine);
+            //Strip formatting
+            text = stripFormattingRegex.Replace(text, string.Empty);
+
+            return text;
+        }
+
         /// <summary>
         /// Gets the content of a class in the html source, for example: HTMLparse("href" the class that holds the data we want, "id" exist within the same element, "Submit" the data of the id, "Button" the element that hold the data , 2 type of the data, true -return the retries to console);
         /// </summary>
