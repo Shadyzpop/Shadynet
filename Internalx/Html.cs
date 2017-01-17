@@ -28,6 +28,11 @@ namespace Shadynet.Http
 
 
         #region Static methods (open)
+        /// <summary>
+        /// Converts Html to plain text.
+        /// </summary>
+        /// <param name="Html"></param>
+        /// <returns>Plain text of the html</returns>
         public static string HtmlToPlainText(string Html)
         {
             const string tagWhiteSpace = @"(>|$)(\W|\n|\r)+<";
@@ -60,7 +65,6 @@ namespace Shadynet.Http
         /// <param name="Element">the HTML class of the attributes</param>
         /// <param name="ElementType">the type of ending in the Element [0-2] -> { 0 = div/> | 1 = /> | 2= > }</param>
         /// <param name="ReturnRetries">Return int represents the retried amount to get the classdata.</param>
-        /// <param name="PainText">Return the text inside the Element. { Works only with type 0 }</param>
         /// <returns>the data inside the <see langword="ClassDataReturn"/>.</returns>
         public static string HTMLparse(string HtmlBody, string ClassDataReturn, string CoClassName, string CoClassData, string Element, int ElementType = 0, bool ReturnRetries = false)
         {
@@ -160,7 +164,7 @@ namespace Shadynet.Http
                 Console.WriteLine(i);
             return data;
         }
-
+        
         /// <summary>
         /// Replaces in a string HTML-entities to represent their characters.
         /// </summary>
