@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Shadynet.Http;
 
-namespace Shadynet.Other
+namespace Shadynet
 {
 
     /// <summary>
-    /// Represends a new forge of <see cref="GetInfo"/>, Really useful if you want to get Anything from a request.
+    /// Represends a new forge of <see cref="Helper"/>, Really useful if you want to get Anything from a request.
     /// </summary>
-    public static class GetInfo
+    public static class Helper
     {
-        #region string
         /// <summary>
         /// Returns a string between two strings, starts from <paramref name="strStart"/> to <paramref name="strEnd"/> from <paramref name="strSource"/>
         /// </summary>
@@ -45,9 +40,7 @@ namespace Shadynet.Other
                 return "";
             }
         }
-        #endregion
-
-        #region stringurl
+        
         /// <summary>
         /// Returns a string from a url using 'Get' between two strings, starts from <paramref name="strStart"/> to <paramref name="strEnd"/> from <paramref name="strSource"/>
         /// </summary>
@@ -82,9 +75,7 @@ namespace Shadynet.Other
                 return ex.ToString();
             }
         }
-        #endregion
 
-        #region cookie
         /// <summary>
         /// Returns raw cookie value from a url using 'Get'.
         /// </summary>
@@ -108,7 +99,6 @@ namespace Shadynet.Other
                 return ex.ToString();
             }
         }
-        #endregion
-
+        
     }
 }

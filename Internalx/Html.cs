@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using Shadynet.Other;
 
 namespace Shadynet.Http
 {
@@ -121,7 +120,7 @@ namespace Shadynet.Http
                         break;
                 }
 
-                ElementResponse = GetInfo.Betweenstring(source.ToString(), ElementLeft, ElementRight);
+                ElementResponse = Helper.Betweenstring(source.ToString(), ElementLeft, ElementRight);
 
                 if (string.IsNullOrEmpty(ElementResponse))
                     throw new Exception("Not Found");
@@ -141,7 +140,7 @@ namespace Shadynet.Http
                 string ClassDataLeft = ClassDataReturn + "=\"";
                 string CoClassLeft = CoClassName + "=\"";
                 string ClassRight = "\"";
-                string CoClassResponse = GetInfo.Betweenstring(ElementResponse, CoClassLeft, ClassRight);
+                string CoClassResponse = Helper.Betweenstring(ElementResponse, CoClassLeft, ClassRight);
 
                 #endregion
 
@@ -149,7 +148,7 @@ namespace Shadynet.Http
 
                 if (CoClassResponse == CoClassData)
                 {
-                    data = GetInfo.Betweenstring(ElementResponse, ClassDataLeft, ClassRight);
+                    data = Helper.Betweenstring(ElementResponse, ClassDataLeft, ClassRight);
                     found = true;
                 }
                 else

@@ -5,7 +5,6 @@ using System.IO.Compression;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using Shadynet.Other;
 
 namespace Shadynet.Http
 {
@@ -649,7 +648,7 @@ namespace Shadynet.Http
         /// </summary>
         /// <returns>If the body of the message is missing, or it has already been downloaded, it will return an empty byte array.</returns>
         /// <exception cref="System.InvalidOperationException">Calling of the wrong answer.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.Http.HttpException">Error when working with the HTTP-report.</exception>
         public byte[] ToBytes()
         {
             #region Checking status
@@ -706,7 +705,7 @@ namespace Shadynet.Http
         /// </summary>
         /// <returns>If the body of the message is missing, or it has already been downloaded, then an empty string is returned.</returns>
         /// <exception cref="System.InvalidOperationException">Calling of the wrong answer.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.Http.HttpException">Error when working with the HTTP-report.</exception>
         override public string ToString()
         {
             #region Checking status
@@ -780,7 +779,7 @@ namespace Shadynet.Http
         /// -or-
         /// The caller does not have permission.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.Http.HttpException">Error when working with the HTTP-report.</exception>
         public void ToFile(string path)
         {
             #region Checking status
@@ -856,7 +855,7 @@ namespace Shadynet.Http
         /// </summary>
         /// <returns>If the body of the message is missing, or it has already been downloaded, it will be returned <see langword="null"/>.</returns>
         /// <exception cref="System.InvalidOperationException">Calling of the wrong answer.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public MemoryStream ToMemoryStream()
         {
             #region Checking status
@@ -912,7 +911,7 @@ namespace Shadynet.Http
         /// Skip message body. This method should be called, unless you want the message body.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Calling of the wrong answer.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public void None()
         {
             #region Checking status
