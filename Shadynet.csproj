@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internalx\~Other\Cryptography.cs" />
-    <Compile Include="Internalx\~Other\GetInfo.cs" />
+    <Compile Include="Internalx\~Other\Helper.cs" />
     <Compile Include="Internalx\~Threading\AsyncEvent.cs" />
     <Compile Include="Internalx\~Threading\MultiThreading.cs" />
     <Compile Include="Internalx\~Threading\MultiThreadingProgressEventArgs.cs" />
