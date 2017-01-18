@@ -64,7 +64,7 @@ using Shadynet.Other;
 <li>SimpleJson: Parses simple json, usage: SimpleJson("id") where id is where the data is saved to be returned.
 </ul>
 
-<h2>GetInfo:</h2>
+<h2>Helper:</h2>
 <ul>
 <li>Betweenstring: Gets a string inside any type of string(<i>input</i>) that is between two strings(<i>input</i>).</li>
 <li>BetweenUrl   : Does the same as <i>Betweenstring</i> but doesnt require a source string, instead a url to get the source code from.</li>
