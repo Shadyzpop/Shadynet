@@ -1,16 +1,32 @@
 # Shadynet
-a warper from xNet, modified to work with heavy requests and managed responses.
+xNet Warper
 
+<blockquote>
+<p><g-emoji alias="heavy_check_mark" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2714.png" ios-version="6.0">✔️</g-emoji> <strong>Shadynet</strong> — Class Library for .NET FrameWork.</p>
+</blockquote>
 
-<p>Shadynet - a class library for .NET Framework which works with:</p>
+[![travis build](https://img.shields.io/travis/Shadyzpop/Shadynet.svg?style=flat-square)](https://travis-ci.org/Shadyzpop/Shadynet)
+
+<p>Supports the following</p>
 <ul>
 <li>proxy servers: <em>HTTP, Socks4(a), Socks5, Chain</em>.</li>
 <li>protocols <em>HTTP 1.0/1.1</em>: <em>keep-alive, gzip, deflate, chunked, SSL, proxies and more</em>.</li>
 </ul>
 
+# Donate
+Bitcoin: 1Md3sNARxTRVzKrvBgT5ZC8KAabPVfSZkg
+
+# features
+<p>Need to add these headers for the following to work</p>
+<pre>
+using Shadynet.Http;
+using Shadynet.Proxy;
+using Shadynet.Other;
+</pre>
+
 <p>Some of the features to note</p>
 
-<b>Proxies(<em>HTTP, Socks4(a), Socks5, Chain</em>) / ProxyHelper:</b>
+<h2>Proxies(<em>HTTP, Socks4(a), Socks5, Chain</em>):</h2>
 <ul>
 <li>TryParse         : Converts a string to an instance of the Proxy type that fits the proxy and output the type of the <i>ProxyClient</i> required, and returns a value indicating whether the conversion was successful(<i>Boolean</i>).
 <li>CreateProxyClient: An instance of Type <i>ProxyClient</i> that uses the proxy provided(<i>input</i>) to Create a connection to the server with the type of proxy also Provided by the user from the <i>enumeration</i> of the class <i>ProxyType</i> in which contains:
@@ -25,9 +41,9 @@ a warper from xNet, modified to work with heavy requests and managed responses.
 </ul></li>
 </ul>
 
-<b>HttpRequest:</b>
+<h2>HttpRequest:</h2>
 <ul>
-<li>ParsePostData   : Parses raw request data(<i>input</i>) and inserts them into an old/new/in-use <i>Requestparam</i> to be requested in the instance.</li>
+<li>ParseAddParam   : Parses raw request data(<i>input</i>) and inserts them into an old/new/in-use <i>Requestparam</i> to be used in the current httprequest instance.</li>
 <li>Raw Request(Raw): Makes a raw request to the Http server with the requested method(<i>input</i>) from the class <i>HttpMethod</i> in which contains:
 <ul>
 <b>
@@ -41,28 +57,67 @@ a warper from xNet, modified to work with heavy requests and managed responses.
 </ul></li>
 </ul>
 
-<b>HttpResponse:</b>
+<h2>HttpResponse:</h2>
 <ul>
-<li>HTMLparse: <em>Parses</em> the HTML attribute inside the received Html code, <em>Returns</em> the requested data from the input (Experimental).</li>
-<li>Between  : Gets a string inside the <em>HTML</em> source code that is between two(<em>Words,Chars,Numbers</em>) inputs.</li>
-<li>cLogger  : Stands for "Console Logger" in which logs all the headers of the requests and can also output the source.</li>
-<li>Logger   : Same as <i>cLogger</i> But this function requires a StringBuilder to output.</li>
+<li>Between   : Gets a string inside the <em>HTML</em> source code that is between two(<em>Words,Chars,Numbers</em>) inputs.</li>
+<li>cLogger   : Stands for "Console Logger" in which logs all the headers of the requests and can also output the source.</li>
+<li>Logger    : Same as <i>cLogger</i> But this function requires a StringBuilder to output.</li>
+<li>SimpleJson: Parses simple json, usage: SimpleJson("id") where id is where the data is saved to be returned.
 </ul>
 
-<b>GetInfo:</b>
+<h2>GetInfo:</h2>
 <ul>
 <li>Betweenstring: Gets a string inside any type of string(<i>input</i>) that is between two strings(<i>input</i>).</li>
 <li>BetweenUrl   : Does the same as <i>Betweenstring</i> but doesnt require a source string, instead a url to get the source code from.</li>
 <li>Cookie       : Returns raw value of a cookie that is requested(<i>input</i>) from a url(<i>input</i>).<
 </ul>
 
-<b>Examples</b>
+<h2>Html:</h2>
+<ul>
+<li>HtmlToPlainText: Converts Html to plain text.</li>
+<li>HTMLparse      : Gets the content of a class in the html source,<br>
+Example:
+<pre>
+// here is some html data from the input
+//<"link rel = "apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+//<"link rel = "apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+//<"link rel = "apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+//<"link rel = "apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+//<"link rel = "apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+//<"link rel = "apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+using Shadynet.Http;
 
-<p>Get:</p>
+using (var request = new HttpRequest("site.com"))
+{
+    var response = request.Get("/");
+
+    // We will parse the html data depending on the size here
+    var data = HTMLparse(response.ToString(), "href", "sizes", "180x180", "link", 2);  
+    // element types range from 0-2, where 0 is where the element ends with "<element/>", 1 ends with "/>" and 2 ends with ">" 
+
+    // in the end data will hold this string "/apple-touch-icon-180x180.png"
+}
+</pre></li>
+<li>ReplaceEntities : Replaces in a string HTML-entities to represent their characters.</li>
+<li>ReplaceUnicode  : Replaces in Unicode-line entities to represent their characters.</li>
+<li>Substring       : Retrieves a substring from a string.
+<li>LastSubstring   : Retrieves the last substring from a string.</li>
+<li>Substrings      : Retrieves a substrings from a string.</li>
+</ul>
+
+# Examples
+<p>using these headers</p>
+<pre>
+using Shadynet.Http;
+using Shadynet.Proxy;
+using Shadynet.Other;
+</pre>
+
+<h2>Get:</h2>
 <pre>
 using (var request = new HttpRequest("google.com"))
 {
-    request.UserAgent = Http.ChromeUserAgent();
+    request.UserAgent = HttpHelper.ChromeUserAgent();
     
     // Send the request, and receive the HttpResponse in the "response"
     HttpResponse response = request.Get("/");
@@ -71,7 +126,8 @@ using (var request = new HttpRequest("google.com"))
     string content = response.ToString();
 }
 </pre>
-<p>Get with simple query:</p>
+
+<h2>Get with simple query:</h2>
 <pre>
 using (var request = new HttpRequest("google.com"))
 {
@@ -94,7 +150,7 @@ using (var request = new HttpRequest("google.com"))
 }
 </pre>
 
-<p>Post:</p>
+<h2>Post:</h2>
 <pre>
 using (var request = new HttpRequest("www.site.com"))
 {
@@ -102,12 +158,12 @@ using (var request = new HttpRequest("www.site.com"))
 
     reqParams["username"] = "admin";
     reqParams["password"] = "admin123";
-    
-    // or with raw data
-  //reqParams.ParsePostData("username=admin&password=admin123");
   
     // or with a request container
  //request.AddParam("username", "admin").AddParam("password", "admin123");
+
+    // or with raw data
+ //request.ParseAddParam("username=admin&password=admin123");
  
     var content = request.Post("/", reqParams);
     
@@ -115,7 +171,7 @@ using (var request = new HttpRequest("www.site.com"))
 }
 </pre>
 
-<p>Sending Multipart / form data:</p>
+<h2>Sending Multipart / form data:</h2>
 <pre>
 using (var request = new HttpRequest("www.microsoft.com"))
 {
@@ -135,11 +191,17 @@ using (var request = new HttpRequest("www.microsoft.com"))
 }
 </pre>
 
-<p>Connections:</p>
-<b>KeepAlive:</b>
+# Connection
+<p>There is more to it than the examples show</p>
+
+<h2>KeepAlive:</h2>
 <pre>
 using (var request = new HttpRequest("site.com"))
 {
+    request.KeepAlive = true; // its true by default.
+    request.KeepAliveTimeout = 1000; // valued by "Milliseconds" default is 30,000 which is equal to 30seconds.
+    request.MaximumKeepAliveRequests = 4; // maximum request per connection, default is 100.
+    
     // Constant requests to the site.
     request.Get("/").None();
     request.Get("/rss").None();
@@ -147,7 +209,7 @@ using (var request = new HttpRequest("site.com"))
 }
 </pre>
 
-<b>Headers/Cookies/Others:</b>
+<h2>Headers/Cookies/Others:</h2>
 <pre>
 using (var request = new HttpRequest("site.com"))
 {
@@ -164,19 +226,29 @@ using (var request = new HttpRequest("site.com"))
     request.AddHeader(HttpHeader.Referer, "http://site.com");
     
     // UserAgents can be generated from the <i>Http</i> Class which generates most common used browsers useragents such as chrome.
-    request.UserAgent = Http.ChromeUserAgent();
+    request.UserAgent = HttpHelper.ChromeUserAgent();
     
-    // allows auto redirect and takes only boolean values
+    // allows auto redirect and takes only boolean values, default is true
     request.AllowAutoRedirect = true;
     
-    // ignores every protocol error that happen within the request such as "404 not found" and wont pass to the exception argument takes only boolean values.
+    // ignores every protocol error that happen within the request such as "404 not found" and wont pass to the exception argument takes only boolean values, default is false
     request.IgnoreProtocolErrors = false;
+
+    // reconnect if an error occurred, default is false
+    request.Reconnect = true; 
+
+    // maximum reconnect attempts, default is 3 
+    request.ReconnectLimit = 2;
+
+    // delay between each reconnected in ms, default is 100
+    request.ReconnectDelay = 200;
+
     
     request.Get("/");
 }
 </pre>
 
-<p>Working with Proxies:</p>
+<h2>Working with Proxies:</h2>
 <p>Simplist code to connect to a proxy and make an http request is</p>
 <pre>
 // initializes a proxy client and parses the proxy string to use it
@@ -207,7 +279,7 @@ using (HttpRequest request = new HttpRequest("site.com"))
 }
 </pre>
 
-<p>Working with Erros:</p>
+<h2>Working with Erros:</h2>
 <pre>
 try
 {
