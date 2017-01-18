@@ -5,7 +5,7 @@ xNet Warper
 <p><g-emoji alias="heavy_check_mark" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2714.png" ios-version="6.0">✔️</g-emoji> <strong>Shadynet</strong> — Class Library for .NET FrameWork.</p>
 </blockquote>
 
-[![travis build](https://img.shields.io/travis/Shadyzpop/Shadynet.svg?style=flat-square)](https://travis-ci.org/Shadyzpop/Shadynet)
+[![Travis](https://api.travis-ci.org/Shadyzpop/Shadynet.svg)](https://api.travis-ci.org/Shadyzpop/Shadynet)
 
 <p>Supports the following</p>
 <ul>
