@@ -62,45 +62,49 @@ namespace Shadynet.Http
         /// <param name="CoClassName">Subclass that exist inside the attribute</param>
         /// <param name="CoClassData">the subclass data that exist inside the attribute</param>
         /// <param name="Element">the HTML class of the attributes</param>
+        /// <param name="BType">Type of the Brackets</param>
         /// <param name="ElementType">the type of ending in the Element [0-2] -> { 0 = div/> | 1 = /> | 2= > }</param>
         /// <param name="ReturnRetries">Return int represents the retried amount to get the classdata.</param>
         /// <returns>the data inside the <see langword="ClassDataReturn"/>.</returns>
-        public static string HTMLparse(string HtmlBody, string ClassDataReturn, string CoClassName, string CoClassData, string Element, int ElementType = 0, bool ReturnRetries = false)
+        public static string[] HTMLparse(string HtmlBody, string ClassDataReturn, string CoClassName, string CoClassData, string Element, int ElementType = 0, int BType = 0, bool ReturnRetries = false)
         {
             #region Settings
             int i = 0;
             bool found = false;
-            string data = string.Empty;
+            string[] d = { "" };
             StringBuilder source = new StringBuilder();
             source.Append(HtmlBody);
+            List<string> dataArray = new List<string>();
             #endregion
 
             #region Check parameter
             if (string.IsNullOrEmpty(HtmlBody))
-                throw new ArgumentNullException("HtmlBody");
+                return d;
 
             if (!source.ToString().Contains(ClassDataReturn))
-                throw new ArgumentException("ClassDataReturn");
+                return d;
 
             if (!source.ToString().Contains(CoClassName))
-                throw new ArgumentException("CoClassName");
+                return d;
 
             if (!source.ToString().Contains(CoClassData))
-                throw new ArgumentException("CoClassData");
+                return d;
 
             if (!source.ToString().Contains(CoClassData))
-                throw new ArgumentException("CoClassData");
+                return d;
 
             if (!source.ToString().Contains(Element))
-                throw new ArgumentException("Element");
+                return d;
             #endregion
 
             while (!found)
             {
                 #region CheckElement
-                if (!source.ToString().Contains(Element))
-                    throw new Exception("Not Found");
-
+                if (!source.ToString().Contains(Element) || !source.ToString().Contains(CoClassData) || !source.ToString().Contains(CoClassName) || !source.ToString().Contains(ClassDataReturn))
+                {
+                    found = true;
+                    goto End;
+                }
                 string ElementResponse = string.Empty;
                 string ElementLeft = "<" + Element;
                 string ElementRight = string.Empty;
@@ -121,9 +125,6 @@ namespace Shadynet.Http
                 }
 
                 ElementResponse = Helper.Betweenstring(source.ToString(), ElementLeft, ElementRight);
-
-                if (string.IsNullOrEmpty(ElementResponse))
-                    throw new Exception("Not Found");
                 #endregion
 
                 #region ClassesCheckandSets
@@ -131,15 +132,29 @@ namespace Shadynet.Http
                 {
                     int Leftindex = source.ToString().IndexOf(ElementLeft);
                     int Rightindex = source.ToString().IndexOf(ElementRight);
-                    if (i != -1)
+                    source.Remove(Leftindex, Rightindex);
+                    if (source.ToString().Contains(ClassDataReturn) && source.ToString().Contains(CoClassName) && source.ToString().Contains(CoClassData))
+                        goto End;
+                    else
                     {
-                        source.Remove(Leftindex, Rightindex);
+                        found = true;
                     }
-                    goto End;
                 }
-                string ClassDataLeft = ClassDataReturn + "=\"";
-                string CoClassLeft = CoClassName + "=\"";
-                string ClassRight = "\"";
+                string ClassDataLeft;
+                string CoClassLeft;
+                string ClassRight;
+                if (BType == 0)
+                {
+                    ClassDataLeft = ClassDataReturn + "=\"";
+                    CoClassLeft = CoClassName + "=\"";
+                    ClassRight = "\"";
+                }
+                else
+                {
+                    ClassDataLeft = ClassDataReturn + "='";
+                    CoClassLeft = CoClassName + "='";
+                    ClassRight = "'";
+                }
                 string CoClassResponse = Helper.Betweenstring(ElementResponse, CoClassLeft, ClassRight);
 
                 #endregion
@@ -148,12 +163,13 @@ namespace Shadynet.Http
 
                 if (CoClassResponse == CoClassData)
                 {
-                    data = Helper.Betweenstring(ElementResponse, ClassDataLeft, ClassRight);
-                    found = true;
+                    dataArray.Add(Helper.Betweenstring(ElementResponse, ClassDataLeft, ClassRight));
                 }
                 else
-                    throw new Exception("Not Found");
-
+                    found = true;
+                int _Leftindex = source.ToString().IndexOf(ElementLeft);
+                int _Rightindex = source.ToString().IndexOf(ElementRight);
+                source.Remove(_Leftindex, _Rightindex);
                 #endregion
                 End:
                 i++;
@@ -161,7 +177,8 @@ namespace Shadynet.Http
             }
             if (ReturnRetries)
                 Console.WriteLine(i);
-            return data;
+
+            return dataArray.ToArray();
         }
         
         /// <summary>

@@ -1,5 +1,7 @@
 ﻿using System;
 using Shadynet.Http;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Shadynet
 {
@@ -99,6 +101,25 @@ namespace Shadynet
                 return ex.ToString();
             }
         }
-        
+
+        public static string[] ScrapeProxies(string[] urls)
+        {
+            List<string> data = new List<string>();
+            string pattern = @"\d{1,3}(\.\d{1,3}){3}:\d{1,5}";
+            foreach (var url in urls)
+            {
+                using (HttpRequest req = new HttpRequest())
+                {
+                    req.UserAgent = HttpHelper.ChromeUserAgent();
+                    req.IgnoreProtocolErrors = true;
+                    req.AllowAutoRedirect = true;
+                    var res = req.Get(url);
+                    MatchCollection proxies = Regex.Matches(res.ToString(), pattern);
+                    foreach (var proxy in proxies)
+                        data.Add(proxy.ToString());
+                }
+            }
+            return data.ToArray();
+        }
     }
 }
