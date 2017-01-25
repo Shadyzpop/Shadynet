@@ -15,7 +15,8 @@ xNet Warper
 # Donate
 Bitcoin: 1Md3sNARxTRVzKrvBgT5ZC8KAabPVfSZkg
 
-# features
+# features - <em>OutDated</em> -
+<h2>new features added but not listed yet</h2>
 <p>Need to add these headers for the following to work</p>
 <pre>
 using Shadynet.Http;
