@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Shadynet</RootNamespace>
     <AssemblyName>Shadynet</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Internalx\~Other\Cryptography.cs" />
     <Compile Include="Internalx\~Other\Helper.cs" />
+    <Compile Include="Internalx\~Other\Spider.cs" />
     <Compile Include="Internalx\~Threading\AsyncEvent.cs" />
     <Compile Include="Internalx\~Threading\MultiThreading.cs" />
     <Compile Include="Internalx\~Threading\MultiThreadingProgressEventArgs.cs" />

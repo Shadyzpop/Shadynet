@@ -1,16 +1,21 @@
 ﻿using System;
 using Shadynet.Http;
+using Shadynet.Proxy;
+using Shadynet.Threading;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Shadynet
 {
-
     /// <summary>
-    /// Represends a new forge of <see cref="Helper"/>, Really useful if you want to get Anything from a request.
+    /// Represends a new forge of <see cref="Helper"/>, really useful.
     /// </summary>
-    public static class Helper
+    public class Helper
     {
+
+        #region Methods(Open)
+
         /// <summary>
         /// Returns a string between two strings, starts from <paramref name="strStart"/> to <paramref name="strEnd"/> from <paramref name="strSource"/>
         /// </summary>
@@ -102,24 +107,7 @@ namespace Shadynet
             }
         }
 
-        public static string[] ScrapeProxies(string[] urls)
-        {
-            List<string> data = new List<string>();
-            string pattern = @"\d{1,3}(\.\d{1,3}){3}:\d{1,5}";
-            foreach (var url in urls)
-            {
-                using (HttpRequest req = new HttpRequest())
-                {
-                    req.UserAgent = HttpHelper.ChromeUserAgent();
-                    req.IgnoreProtocolErrors = true;
-                    req.AllowAutoRedirect = true;
-                    var res = req.Get(url);
-                    MatchCollection proxies = Regex.Matches(res.ToString(), pattern);
-                    foreach (var proxy in proxies)
-                        data.Add(proxy.ToString());
-                }
-            }
-            return data.ToArray();
-        }
+        #endregion
+       
     }
 }
