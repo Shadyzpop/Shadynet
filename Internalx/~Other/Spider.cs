@@ -231,7 +231,7 @@ namespace Shadynet.Other
         {
 
             #region blogspot?
-            public static string[] BlogSpotUrls(string url)
+            public string[] BlogSpotUrls(string url)
             {
                 List<string> uris = new List<string>();
                 using (HttpRequest req = new HttpRequest())
