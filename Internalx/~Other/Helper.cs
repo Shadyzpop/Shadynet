@@ -107,6 +107,22 @@ namespace Shadynet
             }
         }
 
+        public static string Htmlsource(string url)
+        {
+            using(HttpRequest req = new HttpRequest(url))
+            {
+                req.UserAgent = HttpHelper.ChromeUserAgent();
+                req.AllowAutoRedirect = true;
+                req.IgnoreProtocolErrors = true;
+                var res = req.Get("/");
+                return res.ToString();
+            }
+        }
+
+        public static string[] tester(string source,string left,string right)
+        {
+            return Html.Substrings(source, left, right);
+        }
         #endregion
        
     }

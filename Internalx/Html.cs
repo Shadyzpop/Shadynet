@@ -75,6 +75,10 @@ namespace Shadynet.Http
             StringBuilder source = new StringBuilder();
             source.Append(HtmlBody);
             List<string> dataArray = new List<string>();
+
+            string ElementResponse = string.Empty;
+            string ElementLeft = "<" + Element;
+            string ElementRight = string.Empty;
             #endregion
 
             #region Check parameter
@@ -105,9 +109,6 @@ namespace Shadynet.Http
                     found = true;
                     goto End;
                 }
-                string ElementResponse = string.Empty;
-                string ElementLeft = "<" + Element;
-                string ElementRight = string.Empty;
                 switch (ElementType)
                 {
                     case 0:
