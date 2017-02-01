@@ -13,7 +13,7 @@ xNet Warper
 </ul>
 
 # Donate
-Bitcoin: 1Md3sNARxTRVzKrvBgT5ZC8KAabPVfSZkg
+Bitcoin: 1Nm8bVDfs1dwfCNPyd7QQ6fMux2Y5iwv6V
 
 # features - <em>OutDated</em> -
 <h2>new features added but not listed yet</h2>
