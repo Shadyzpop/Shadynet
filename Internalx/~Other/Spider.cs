@@ -60,25 +60,31 @@ namespace Shadynet.Other
             private int _ptype { set; get; }
             #region Methods(Open)
 
-            public string[] ScrapeProxies(string[] urls)
+            public Task<string[]> ScrapeProxies(string[] urls)
             {
-                List<string> data = new List<string>();
-                string pattern = @"\d{1,3}(\.\d{1,3}){3}:\d{1,5}";
-
-                using (HttpRequest req = new HttpRequest())
+                return Task.Run(() =>
                 {
-                    req.UserAgent = HttpHelper.ChromeUserAgent();
-                    req.IgnoreProtocolErrors = true;
-                    req.AllowAutoRedirect = true;
-                    foreach (var url in urls)
+                    List<string> data = new List<string>();
+                    string pattern = @"\d{1,3}(\.\d{1,3}){3}:\d{1,5}";
+                    try
                     {
-                        var res = req.Get(url);
-                        MatchCollection proxies = Regex.Matches(res.ToString(), pattern);
-                        foreach (var proxy in proxies)
-                            data.Add(proxy.ToString());
+                        using (HttpRequest req = new HttpRequest())
+                        {
+                            req.UserAgent = HttpHelper.ChromeUserAgent();
+                            req.IgnoreProtocolErrors = true;
+                            req.AllowAutoRedirect = true;
+                            foreach (var url in urls)
+                            {
+                                var res = req.Get(url);
+                                MatchCollection proxies = Regex.Matches(res.ToString(), pattern);
+                                foreach (var proxy in proxies)
+                                    data.Add(proxy.ToString());
+                            }
+                        }
                     }
-                }
-                return data.ToArray();
+                    catch { }
+                    return data.ToArray();
+                });
             }
 
             public string[,] ProxyCheck(string proxy, string url, bool autoredirect, bool reconnect = false, int timeout = 0 , int ptype = 0)
@@ -234,13 +240,17 @@ namespace Shadynet.Other
             public string[] BlogSpotUrls(string url)
             {
                 List<string> uris = new List<string>();
-                using (HttpRequest req = new HttpRequest())
+                try
                 {
-                    var res = req.Get(url);
-                    var purl = Html.HTMLparse(res.ToString(), "href", "source", "blogger:blog:plusone", "g:plusone", 1, 1);
-                    foreach (var a in purl)
-                        uris.Add(a);
+                    using (HttpRequest req = new HttpRequest())
+                    {
+                        var res = req.Get(url);
+                        var purl = Html.HTMLparse(res.ToString(), "href", "source", "blogger:blog:plusone", "g:plusone", 1, 1);
+                        foreach (var a in purl)
+                            uris.Add(a);
+                    }
                 }
+                catch { }
                 return uris.ToArray();
             }
             #endregion
