@@ -929,7 +929,7 @@ namespace Shadynet.Http
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Get(string address, RequestParams urlParams = null)
         {
             if (urlParams != null)
@@ -947,7 +947,7 @@ namespace Shadynet.Http
         /// <param name="urlParams">Parameters URL-addresses, or value <see langword="null"/>.</param>
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Get(Uri address, RequestParams urlParams = null)
         {
             if (urlParams != null)
@@ -970,7 +970,7 @@ namespace Shadynet.Http
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> GetAsync(string address, RequestParams urlParams = null)
         {
             return await Task.Run(() => {
@@ -985,7 +985,7 @@ namespace Shadynet.Http
         /// <param name="urlParams">Parameters URL-addresses, or value <see langword="null"/>.</param>
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> GetAsync(Uri address, RequestParams urlParams = null)
         {
             return await Task.Run(() =>
@@ -1008,7 +1008,7 @@ namespace Shadynet.Http
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(string address)
         {
             return Raw(HttpMethod.POST, address);
@@ -1020,7 +1020,7 @@ namespace Shadynet.Http
         /// <param name="address">Address Internet resource.</param>
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(Uri address)
         {
             return Raw(HttpMethod.POST, address);
@@ -1039,7 +1039,7 @@ namespace Shadynet.Http
         /// parameter <paramref name="reqParams"/> equally <see langword="null"/>.
         /// </exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(string address, RequestParams reqParams, bool dontEscape = false)
         {
             #region Check settings
@@ -1066,7 +1066,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="reqParams"/> equally <see langword="null"/>.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(Uri address, RequestParams reqParams, bool dontEscape = false)
         {
             #region Check settings
@@ -1102,7 +1102,7 @@ namespace Shadynet.Http
         /// -or
         /// parameter <paramref name="contentType"/> is an empty string.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(string address, string str, string contentType)
         {
             #region Check settings
@@ -1156,7 +1156,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="contentType"/> is an empty string.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(Uri address, string str, string contentType)
         {
             #region Check settings
@@ -1210,7 +1210,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="contentType"/> is an empty string.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(string address, byte[] bytes, string contentType = "application/octet-stream")
         {
             #region Check settings
@@ -1255,7 +1255,7 @@ namespace Shadynet.Http
         /// parameter <paramref name="contentType"/> equally <see langword="null"/>.
         /// </exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="contentType"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(Uri address, byte[] bytes, string contentType = "application/octet-stream")
         {
             #region Check settings
@@ -1304,7 +1304,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="contentType"/> is an empty string.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(string address, Stream stream, string contentType = "application/octet-stream")
         {
             #region Check settings
@@ -1349,7 +1349,7 @@ namespace Shadynet.Http
         /// parameter <paramref name="contentType"/> equally <see langword="null"/>.
         /// </exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="contentType"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(Uri address, Stream stream, string contentType = "application/octet-stream")
         {
             #region Check settings
@@ -1395,7 +1395,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="path"/> is an empty string.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(string address, string path)
         {
             #region Check settings
@@ -1427,7 +1427,7 @@ namespace Shadynet.Http
         /// parameter <paramref name="path"/> equally <see langword="null"/>.
         /// </exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="path"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(Uri address, string path)
         {
             #region Check settings
@@ -1459,7 +1459,7 @@ namespace Shadynet.Http
         /// parameter <paramref name="content"/> equally <see langword="null"/>.
         /// </exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(string address, HttpContent content)
         {
             #region Check settings
@@ -1485,7 +1485,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="content"/> equally <see langword="null"/>.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Post(Uri address, HttpContent content)
         {
             #region Check settings
@@ -1511,7 +1511,7 @@ namespace Shadynet.Http
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(string address)
         {
             return await Task.Run(() =>
@@ -1526,7 +1526,7 @@ namespace Shadynet.Http
         /// <param name="address">Address Internet resource.</param>
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(Uri address)
         {
             return await Task.Run(() =>
@@ -1548,7 +1548,7 @@ namespace Shadynet.Http
         /// parameter <paramref name="reqParams"/> equally <see langword="null"/>.
         /// </exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(string address, RequestParams reqParams, bool dontEscape = false)
         {
             #region Check settings
@@ -1578,7 +1578,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="reqParams"/> equally <see langword="null"/>.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(Uri address, RequestParams reqParams, bool dontEscape = false)
         {
             #region Check settings
@@ -1617,7 +1617,7 @@ namespace Shadynet.Http
         /// -or
         /// parameter <paramref name="contentType"/> is an empty string.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(string address, string str, string contentType)
         {
             return await Task.Run(() =>
@@ -1645,7 +1645,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="contentType"/> is an empty string.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(Uri address, string str, string contentType)
         {
             return await Task.Run(() =>
@@ -1673,7 +1673,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="contentType"/> is an empty string.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(string address, byte[] bytes, string contentType = "application/octet-stream")
         {
             return await Task.Run(() =>
@@ -1697,7 +1697,7 @@ namespace Shadynet.Http
         /// parameter <paramref name="contentType"/> equally <see langword="null"/>.
         /// </exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="contentType"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(Uri address, byte[] bytes, string contentType = "application/octet-stream")
         {
             return await Task.Run(() =>
@@ -1725,7 +1725,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="contentType"/> is an empty string.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(string address, Stream stream, string contentType = "application/octet-stream")
         {
             return await Task.Run(() =>
@@ -1749,7 +1749,7 @@ namespace Shadynet.Http
         /// parameter <paramref name="contentType"/> equally <see langword="null"/>.
         /// </exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="contentType"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(Uri address, Stream stream, string contentType = "application/octet-stream")
         {
             return await Task.Run(() =>
@@ -1774,7 +1774,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="path"/> is an empty string.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(string address, string path)
         {
             return await Task.Run(() =>
@@ -1795,7 +1795,7 @@ namespace Shadynet.Http
         /// parameter <paramref name="path"/> equally <see langword="null"/>.
         /// </exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="path"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(Uri address, string path)
         {
             return await Task.Run(() =>
@@ -1816,7 +1816,7 @@ namespace Shadynet.Http
         /// parameter <paramref name="content"/> equally <see langword="null"/>.
         /// </exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(string address, HttpContent content)
         {
             return await Task.Run(() =>
@@ -1836,7 +1836,7 @@ namespace Shadynet.Http
         /// -or-
         /// parameter <paramref name="content"/> equally <see langword="null"/>.
         /// </exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> PostAsync(Uri address, HttpContent content)
         {
             return await Task.Run(() =>
@@ -1860,7 +1860,7 @@ namespace Shadynet.Http
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Raw(HttpMethod method, string address, HttpContent content = null)
         {
             #region Check settings
@@ -1889,7 +1889,7 @@ namespace Shadynet.Http
         /// <param name="content">Content that is sent to the HTTP-server, or value <see langword="null"/>.</param>
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public HttpResponse Raw(HttpMethod method, Uri address, HttpContent content = null)
         {
             #region Check settings
@@ -1955,7 +1955,7 @@ namespace Shadynet.Http
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
         /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> RawAsync(HttpMethod method, string address, HttpContent content = null)
         {
             return await Task.Run(() =>
@@ -1972,7 +1972,7 @@ namespace Shadynet.Http
         /// <param name="content">Content that is sent to the HTTP-server, or value <see langword="null"/>.</param>
         /// <returns>The object is designed to download a response from the HTTP-server.</returns>
         /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
-        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        /// <exception cref="Shadynet.Http.HttpException">Error when working with the HTTP-report.</exception>
         public async Task<HttpResponse> RawAsync(HttpMethod method, Uri address, HttpContent content = null)
         {
             return await Task.Run(() =>
@@ -2737,14 +2737,14 @@ namespace Shadynet.Http
             }
             catch (SecurityException ex)
             {
-                throw NewHttpException(Resources.HttpException_FailedSendRequest, ex, HttpExceptionStatus.SendFailure);
+                throw NewHttpException(Resources.Http.HttpException_FailedSendRequest, ex, HttpExceptionStatus.SendFailure);
             }
             catch (IOException ex)
             {
                 if (CanReconnect())
                     return ReconnectAfterFail();
 
-                throw NewHttpException(Resources.HttpException_FailedSendRequest, ex, HttpExceptionStatus.SendFailure);
+                throw NewHttpException(Resources.Http.HttpException_FailedSendRequest, ex, HttpExceptionStatus.SendFailure);
             }
 
             #endregion
@@ -2784,7 +2784,7 @@ namespace Shadynet.Http
             if (AllowAutoRedirect && _response.HasRedirect)
             {
                 if (++_redirectionCount > _maximumAutomaticRedirections)
-                    throw NewHttpException(Resources.HttpException_LimitRedirections);
+                    throw NewHttpException(Resources.Http.HttpException_LimitRedirections);
 
                 ClearRequestData();
                 return Request(HttpMethod.GET, _response.RedirectAddress, null);
@@ -2932,14 +2932,14 @@ namespace Shadynet.Http
             if ((statusCodeNum >= 400) && (statusCodeNum < 500))
             {
                 throw new HttpException(string.Format(
-                    Resources.HttpException_ClientError, statusCodeNum),
+                    Resources.Http.HttpException_ClientError, statusCodeNum),
                     HttpExceptionStatus.ProtocolError, _response.StatusCode);
             }
 
             if (statusCodeNum >= 500)
             {
                 throw new HttpException(string.Format(
-                    Resources.HttpException_SeverError, statusCodeNum),
+                    Resources.Http.HttpException_SeverError, statusCodeNum),
                     HttpExceptionStatus.ProtocolError, _response.StatusCode);
             }
         }
@@ -2978,7 +2978,7 @@ namespace Shadynet.Http
                     if (ex is SocketException || ex is ArgumentException)
                     {
                         throw NewHttpException(
-                            Resources.HttpException_FailedGetHostAddresses, ex);
+                            Resources.Http.HttpException_FailedGetHostAddresses, ex);
                     }
 
                     throw;
@@ -3034,7 +3034,7 @@ namespace Shadynet.Http
 
                     if (ex is SocketException || ex is SecurityException)
                     {
-                        throw NewHttpException(Resources.HttpException_FailedConnect, ex, HttpExceptionStatus.ConnectFailure);
+                        throw NewHttpException(Resources.Http.HttpException_FailedConnect, ex, HttpExceptionStatus.ConnectFailure);
                     }
 
                     throw;
@@ -3045,7 +3045,7 @@ namespace Shadynet.Http
                 if (!connectDoneEvent.Wait(_connectTimeout))
                 {
                     tcpClient.Close();
-                    throw NewHttpException(Resources.HttpException_ConnectTimeout, null, HttpExceptionStatus.ConnectFailure);
+                    throw NewHttpException(Resources.Http.HttpException_ConnectTimeout, null, HttpExceptionStatus.ConnectFailure);
                 }
 
                 if (connectException != null)
@@ -3054,7 +3054,7 @@ namespace Shadynet.Http
 
                     if (connectException is SocketException)
                     {
-                        throw NewHttpException(Resources.HttpException_FailedConnect, connectException, HttpExceptionStatus.ConnectFailure);
+                        throw NewHttpException(Resources.Http.HttpException_FailedConnect, connectException, HttpExceptionStatus.ConnectFailure);
                     }
 
                     throw connectException;
@@ -3063,7 +3063,7 @@ namespace Shadynet.Http
                 if (!tcpClient.Connected)
                 {
                     tcpClient.Close();
-                    throw NewHttpException(Resources.HttpException_FailedConnect, null, HttpExceptionStatus.ConnectFailure);
+                    throw NewHttpException(Resources.Http.HttpException_FailedConnect, null, HttpExceptionStatus.ConnectFailure);
                 }
 
                 #endregion
@@ -3079,7 +3079,7 @@ namespace Shadynet.Http
                 }
                 catch (ProxyException ex)
                 {
-                    throw NewHttpException(Resources.HttpException_FailedConnect, ex, HttpExceptionStatus.ConnectFailure);
+                    throw NewHttpException(Resources.Http.HttpException_FailedConnect, ex, HttpExceptionStatus.ConnectFailure);
                 }
             }
 
@@ -3114,7 +3114,7 @@ namespace Shadynet.Http
                 {
                     if (ex is IOException || ex is AuthenticationException)
                     {
-                        throw NewHttpException(Resources.HttpException_FailedSslConnect, ex, HttpExceptionStatus.ConnectFailure);
+                        throw NewHttpException(Resources.Http.HttpException_FailedSslConnect, ex, HttpExceptionStatus.ConnectFailure);
                     }
 
                     throw;
