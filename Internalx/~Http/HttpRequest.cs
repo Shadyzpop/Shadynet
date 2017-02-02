@@ -2737,14 +2737,14 @@ namespace Shadynet.Http
             }
             catch (SecurityException ex)
             {
-                throw NewHttpException(Resources.Http.HttpException_FailedSendRequest, ex, HttpExceptionStatus.SendFailure);
+                throw NewHttpException(Resources.HttpException_FailedSendRequest, ex, HttpExceptionStatus.SendFailure);
             }
             catch (IOException ex)
             {
                 if (CanReconnect())
                     return ReconnectAfterFail();
 
-                throw NewHttpException(Resources.Http.HttpException_FailedSendRequest, ex, HttpExceptionStatus.SendFailure);
+                throw NewHttpException(Resources.HttpException_FailedSendRequest, ex, HttpExceptionStatus.SendFailure);
             }
 
             #endregion
@@ -2784,7 +2784,7 @@ namespace Shadynet.Http
             if (AllowAutoRedirect && _response.HasRedirect)
             {
                 if (++_redirectionCount > _maximumAutomaticRedirections)
-                    throw NewHttpException(Resources.Http.HttpException_LimitRedirections);
+                    throw NewHttpException(Resources.HttpException_LimitRedirections);
 
                 ClearRequestData();
                 return Request(HttpMethod.GET, _response.RedirectAddress, null);
@@ -2932,14 +2932,14 @@ namespace Shadynet.Http
             if ((statusCodeNum >= 400) && (statusCodeNum < 500))
             {
                 throw new HttpException(string.Format(
-                    Resources.Http.HttpException_ClientError, statusCodeNum),
+                    Resources.HttpException_ClientError, statusCodeNum),
                     HttpExceptionStatus.ProtocolError, _response.StatusCode);
             }
 
             if (statusCodeNum >= 500)
             {
                 throw new HttpException(string.Format(
-                    Resources.Http.HttpException_SeverError, statusCodeNum),
+                    Resources.HttpException_SeverError, statusCodeNum),
                     HttpExceptionStatus.ProtocolError, _response.StatusCode);
             }
         }
@@ -2978,7 +2978,7 @@ namespace Shadynet.Http
                     if (ex is SocketException || ex is ArgumentException)
                     {
                         throw NewHttpException(
-                            Resources.Http.HttpException_FailedGetHostAddresses, ex);
+                            Resources.HttpException_FailedGetHostAddresses, ex);
                     }
 
                     throw;
@@ -3034,7 +3034,7 @@ namespace Shadynet.Http
 
                     if (ex is SocketException || ex is SecurityException)
                     {
-                        throw NewHttpException(Resources.Http.HttpException_FailedConnect, ex, HttpExceptionStatus.ConnectFailure);
+                        throw NewHttpException(Resources.HttpException_FailedConnect, ex, HttpExceptionStatus.ConnectFailure);
                     }
 
                     throw;
@@ -3045,7 +3045,7 @@ namespace Shadynet.Http
                 if (!connectDoneEvent.Wait(_connectTimeout))
                 {
                     tcpClient.Close();
-                    throw NewHttpException(Resources.Http.HttpException_ConnectTimeout, null, HttpExceptionStatus.ConnectFailure);
+                    throw NewHttpException(Resources.HttpException_ConnectTimeout, null, HttpExceptionStatus.ConnectFailure);
                 }
 
                 if (connectException != null)
@@ -3054,7 +3054,7 @@ namespace Shadynet.Http
 
                     if (connectException is SocketException)
                     {
-                        throw NewHttpException(Resources.Http.HttpException_FailedConnect, connectException, HttpExceptionStatus.ConnectFailure);
+                        throw NewHttpException(Resources.HttpException_FailedConnect, connectException, HttpExceptionStatus.ConnectFailure);
                     }
 
                     throw connectException;
@@ -3063,7 +3063,7 @@ namespace Shadynet.Http
                 if (!tcpClient.Connected)
                 {
                     tcpClient.Close();
-                    throw NewHttpException(Resources.Http.HttpException_FailedConnect, null, HttpExceptionStatus.ConnectFailure);
+                    throw NewHttpException(Resources.HttpException_FailedConnect, null, HttpExceptionStatus.ConnectFailure);
                 }
 
                 #endregion
@@ -3079,7 +3079,7 @@ namespace Shadynet.Http
                 }
                 catch (ProxyException ex)
                 {
-                    throw NewHttpException(Resources.Http.HttpException_FailedConnect, ex, HttpExceptionStatus.ConnectFailure);
+                    throw NewHttpException(Resources.HttpException_FailedConnect, ex, HttpExceptionStatus.ConnectFailure);
                 }
             }
 
@@ -3114,7 +3114,7 @@ namespace Shadynet.Http
                 {
                     if (ex is IOException || ex is AuthenticationException)
                     {
-                        throw NewHttpException(Resources.Http.HttpException_FailedSslConnect, ex, HttpExceptionStatus.ConnectFailure);
+                        throw NewHttpException(Resources.HttpException_FailedSslConnect, ex, HttpExceptionStatus.ConnectFailure);
                     }
 
                     throw;
