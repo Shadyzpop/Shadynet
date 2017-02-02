@@ -49,17 +49,24 @@ namespace Shadynet.Other
 
         public class Proxies
         {
-            private bool running = false;
-            private bool Stop = false;
 
-            private List<string> _proxies = new List<string>();
-            private List<string> _speed = new List<string>();
+            private string _proxy { set; get; }
 
-            private string _url { set; get; }
-            private int _timeout { set; get; }
-            private int _ptype { set; get; }
+            private Uri _judge { set; get; }
+
+            public Proxies(string proxy = null)
+            {
+                _proxy = proxy;
+            }
+
+            public Proxies(string proxy, Uri judge)
+            {
+                _proxy = proxy;
+                _judge = judge;
+            }
+
             #region Methods(Open)
-
+            
             public async Task<string[]> ScrapeProxies(string[] urls)
             {
                 return await Task.Run(() =>
@@ -135,99 +142,52 @@ namespace Shadynet.Other
                 });
             }
 
-            #region MultiThreading
-            public async Task ProxiesCheck(string[] Proxies, string url, int timeout, int Threads, int ptype = 0)
+            public async Task<bool> isProxyAnon(string proxy,ProxyType type,string judge = "http://proxyjudge.info")
             {
-                running = true;
-                _url = url;
-                _timeout = timeout;
-                _ptype = ptype;
-
-
-                using (MultiThreading threads = new MultiThreading(Threads))
+                return await Task<bool>.Run(async () =>
                 {
-                    threads.WorkCompleted += Threads_WorkCompleted;
-                    threads.CancelingWork += Threads_CancelingWork;
-                    threads.RunForEach(Proxies, ProxyCheck);
-
-                    while (running)
+                    try
                     {
-                        if (Stop)
+                        using(HttpRequest req = new HttpRequest(judge))
                         {
-                            threads.Cancel();
-                        }
-                        System.Threading.Thread.Sleep(500);
-                    }
-                }
-            }
-
-            #region Events
-            private void Threads_WorkCompleted(object sender, EventArgs e)
-            {
-                running = false;
-                _url = null;
-                _timeout = 0;
-                _ptype = 0;
-            }
-            private void Threads_CancelingWork(object sender, EventArgs e)
-            {
-                running = false;
-                _url = null;
-                _timeout = 0;
-                _ptype = 0;
-            }
-            #endregion
-
-            private void ProxyCheck(string obj)
-            {
-                var proxy = obj;
-                try
-                {
-                    using (HttpRequest req = new HttpRequest(_url))
-                    {
-                        req.UserAgent = HttpHelper.ChromeUserAgent();
-                        req.Cookies = new CookieCore(false);
-                        req.AllowAutoRedirect = true;
-                        req.SslCertificateValidatorCallback = HttpHelper.AcceptAllCertificationsCallback;
-                        req.ConnectTimeout = _timeout;
-
-                        #region proxyset
-                        switch (_ptype)
-                        {
-                            case 0:
-                                req.Proxy = HttpProxyClient.Parse(proxy);
-                                break;
-                            case 1:
-                                req.Proxy = Socks4ProxyClient.Parse(proxy);
-                                break;
-                            case 2:
-                                req.Proxy = Socks4aProxyClient.Parse(proxy);
-                                break;
-                            case 3:
-                                req.Proxy = Socks5ProxyClient.Parse(proxy);
-                                break;
-                        }
-                        #endregion
-
-                        var res = req.Get("/");
-                        lock (_proxies)
-                        {
-                            lock (_speed)
+                            req.SslCertificateValidatorCallback = HttpHelper.AcceptAllCertificationsCallback;
+                            req.UserAgent = HttpHelper.ChromeUserAgent();
+                            req.Proxy = ChainProxyClient.Parse(type, proxy);
+                            req.ConnectTimeout = 1000;
+                            req.IgnoreProtocolErrors = true;
+                            var res = req.Get("/");
+                            var content = res.ToString();
+                            var myip = await this.Myip();
+                            if (content != "" && !content.Contains(myip))
                             {
-                                _proxies.Add(proxy);
-                                _speed.Add(res.ConnectionTime.ToString());
+                                res.cLogger();
+                                return true;
                             }
+                            else
+                                return false;
                         }
                     }
-                }
-                catch { }
+                    catch { return false; }
+                });
             }
-            
-            private void StopChecking()
+
+            public async Task<string> Myip()
             {
-                Stop = true;
+                return await Task<string>.Run(async () =>
+                {
+                    try
+                    {
+                        using(HttpRequest req = new HttpRequest("http://proxyjudge.info"))
+                        {
+                            req.UserAgent = HttpHelper.ChromeUserAgent();
+                            var res = await req.GetAsync("/");
+                            var data = Helper.Betweenstring(res.ToString(), "REMOTE_ADDR = ", "\n");
+                            return data;
+                        }
+                    }
+                    catch { return ""; }
+                });
             }
-            #endregion
 
             #endregion
         }
