@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using System.Security;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Shadynet.Proxy
 {
@@ -417,7 +418,13 @@ namespace Shadynet.Proxy
         /// <exception cref="Shadynet.ProxyException">Failed to work with a proxy server.</exception>
         public abstract TcpClient CreateConnection(string destinationHost, int destinationPort, TcpClient tcpClient = null);
 
-
+        public async Task<TcpClient> CreateConnectionAsync(string destinationHost, int destinationPort, TcpClient tcpClient = null)
+        {
+            return await Task.Run(() =>
+            {
+                return this.CreateConnection(destinationHost, destinationPort, tcpClient);
+            });
+        }
         #region Methods (open)
 
         /// <summary>
