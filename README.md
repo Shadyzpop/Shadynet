@@ -1,6 +1,6 @@
-# Shadynet [![Travis](https://api.travis-ci.org/Shadyzpop/Shadynet.svg)](https://travis-ci.org/Shadyzpop/Shadynet)
+# Shadynet 
 
-xNet Warper
+xNet Warper [![Travis](https://api.travis-ci.org/Shadyzpop/Shadynet.svg)](https://travis-ci.org/Shadyzpop/Shadynet) HttpRequests with ease
 
 <blockquote>
 <p><g-emoji alias="heavy_check_mark" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2714.png" ios-version="6.0">✔️</g-emoji> <strong>Shadynet</strong> — Class Library for .NET FrameWork.</p>
