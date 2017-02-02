@@ -28,7 +28,8 @@ using Shadynet.Other;
 
 <h2>Proxies(<em>HTTP, Socks4(a), Socks5, Chain</em>):</h2>
 <ul>
-<li>TryParse         : Converts a string to an instance of the Proxy type that fits the proxy and output the type of the <i>ProxyClient</i> required, and returns a value indicating whether the conversion was successful(<i>Boolean</i>).
+<li>TryParse         : Converts a string to an instance of the Proxy type that fits the proxy and output the type of the <i>ProxyClient</i> required, and returns a value indicating whether the conversion was successful(<i>Boolean</i>). </li>
+
 <li>CreateProxyClient: An instance of Type <i>ProxyClient</i> that uses the proxy provided(<i>input</i>) to Create a connection to the server with the type of proxy also Provided by the user from the <i>enumeration</i> of the class <i>ProxyType</i> in which contains:
 <ul>
 <b>
