@@ -84,12 +84,27 @@ namespace Shadynet
         }
 
         /// <summary>
+        /// Returns a string from a url using 'Get' between two strings, starts from <paramref name="strStart"/> to <paramref name="strEnd"/> from <paramref name="strSource"/>, Asynchronously.
+        /// </summary>
+        /// <param name="URL">The Url Returning source string of the context.</param>
+        /// <param name="strStart">The head start of the param</param>
+        /// <param name="strEnd">The tail end of the param</param>
+        /// <returns>The string between <paramref name="strStart"/> and <paramref name="strEnd"/> from <paramref name="strSource"/></returns>
+        public static async Task<string> BetweenUrlAsync(string URL, string strStart, string strEnd)
+        {
+            return await Task.Run(() =>
+            {
+                return BetweenUrl(URL, strStart, strEnd);
+            });
+        }
+
+        /// <summary>
         /// Returns raw cookie value from a url using 'Get'.
         /// </summary>
         /// <param name="URL">The Url to be specified.</param>
         /// <param name="Cookie">Given cookie in the context.</param>
         /// <returns>Raw cookie value from the given 'URL' specified in 'Cookie'</returns>
-        public static string Cookie(string URL, string Cookie)
+        public static string Cookie(string URL, string cookie)
         {
             try
             {
@@ -97,7 +112,7 @@ namespace Shadynet
                 {
                     rq.UserAgent = HttpHelper.ChromeUserAgent();
                     string strSource = rq.Get(URL).Cookies.ToString() + ";";
-                    string res = Betweenstring(strSource, Cookie + "=", ";");
+                    string res = Betweenstring(strSource, cookie + "=", ";");
                     return res;
                 }
             }
@@ -107,22 +122,39 @@ namespace Shadynet
             }
         }
 
-        public static string Htmlsource(string url)
+        /// <summary>
+        /// Returns raw cookie value from a url using 'Get'.
+        /// </summary>                                                
+        /// <param name="URL">The Url to be specified.</param>        
+        /// <param name="Cookie">Given cookie in the context.</param> 
+        /// <returns>Raw cookie value from the given 'URL' specified in 'Cookie'</returns>
+        public static async Task<string> CookieAsync(string URL, string cookie)
         {
-            using(HttpRequest req = new HttpRequest(url))
+            return await Task.Run(() =>
             {
-                req.UserAgent = HttpHelper.ChromeUserAgent();
-                req.AllowAutoRedirect = true;
-                req.IgnoreProtocolErrors = true;
-                var res = req.Get("/");
-                return res.ToString();
-            }
+                return Cookie(URL, cookie);
+            });
         }
 
-        public static string[] tester(string source,string left,string right)
+        public static async Task<string> Htmlsource(string url)
         {
-            return Html.Substrings(source, left, right);
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    using (HttpRequest req = new HttpRequest(url))
+                    {
+                        req.UserAgent = HttpHelper.ChromeUserAgent();
+                        req.AllowAutoRedirect = true;
+                        req.IgnoreProtocolErrors = true;
+                        var res = req.Get("/");
+                        return res.ToString();
+                    }
+                }
+                catch { return ""; }
+            });
         }
+        
         #endregion
        
     }

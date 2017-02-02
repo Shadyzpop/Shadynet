@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
+using Shadynet.Http;
 
 namespace Shadynet.Threading
 {
@@ -697,6 +698,11 @@ namespace Shadynet.Threading
             {
                 throw new ObjectDisposedException("MultiThreading<TProgress>");
             }
+        }
+
+        internal void Run(Func<string, RequestParams, HttpResponse> get)
+        {
+            throw new NotImplementedException();
         }
     }
 }

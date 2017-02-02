@@ -11,7 +11,9 @@ using System.Security;
 using System.Security.Authentication;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Shadynet.Proxy;
+using Shadynet.Threading;
 
 namespace Shadynet.Http
 {
@@ -917,6 +919,7 @@ namespace Shadynet.Http
         #region Methods (open)
 
         #region Get
+        #region Normal
 
         /// <summary>
         /// It sends a GET-request to the HTTP-server.
@@ -957,7 +960,46 @@ namespace Shadynet.Http
 
         #endregion
 
+        #region Async
+
+        /// <summary>
+        /// It sends a GET-request to the HTTP-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="urlParams">Parameters URL-addresses, or value <see langword="null"/>.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
+        /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> GetAsync(string address, RequestParams urlParams = null)
+        {
+            return await Task.Run(() => {
+                return this.Get(address, urlParams);
+            });
+        }
+
+        /// <summary>
+        /// It sends a GET-request to the HTTP-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address of the Internet resource.</param>
+        /// <param name="urlParams">Parameters URL-addresses, or value <see langword="null"/>.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> GetAsync(Uri address, RequestParams urlParams = null)
+        {
+            return await Task.Run(() =>
+            {
+                return this.Get(address, urlParams);
+            });
+        }
+
+        #endregion
+        #endregion
+
+
         #region Post
+        #region Normal
 
         /// <summary>
         /// Sends the HTTP POST-search-server.
@@ -971,7 +1013,7 @@ namespace Shadynet.Http
         {
             return Raw(HttpMethod.POST, address);
         }
-
+        
         /// <summary>
         /// Sends the HTTP POST-search-server.
         /// </summary>
@@ -1457,9 +1499,357 @@ namespace Shadynet.Http
 
             return Raw(HttpMethod.POST, address, content);
         }
+
+        #endregion
+
+        #region Async
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
+        /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(string address)
+        {
+            return await Task.Run(() =>
+            {
+                return this.Post(address);
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(Uri address)
+        {
+            return await Task.Run(() =>
+            {
+                return this.Raw(HttpMethod.POST, address);
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="reqParams">Request parameters sent to the HTTP-server.</param>
+        /// <param name="dontEscape">Specifies whether to encode the request parameters need.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="reqParams"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(string address, RequestParams reqParams, bool dontEscape = false)
+        {
+            #region Check settings
+
+            if (reqParams == null)
+            {
+                throw new ArgumentNullException("reqParams");
+            }
+
+            #endregion
+
+            return await Task.Run(() =>
+            {
+                return this.Raw(HttpMethod.POST, address, new FormUrlEncodedContent(reqParams, dontEscape, CharacterSet));
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="reqParams">Request parameters sent to the HTTP-server.</param>
+        /// <param name="dontEscape">Specifies whether to encode the request parameters need.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="reqParams"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(Uri address, RequestParams reqParams, bool dontEscape = false)
+        {
+            #region Check settings
+
+            if (reqParams == null)
+            {
+                throw new ArgumentNullException("reqParams");
+            }
+
+            #endregion
+
+            return await Task.Run(() =>
+            {
+                return this.Raw(HttpMethod.POST, address, new FormUrlEncodedContent(reqParams, dontEscape, CharacterSet));
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="str">The string sent by the HTTP-server.</param>
+        /// <param name="contentType">Type of data to be sent.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="str"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="contentType"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">
+        /// parameter <paramref name="address"/> is an empty string.
+        /// -or-
+        /// parameter <paramref name="str"/> is an empty string.
+        /// -or
+        /// parameter <paramref name="contentType"/> is an empty string.
+        /// </exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(string address, string str, string contentType)
+        {
+            return await Task.Run(() =>
+            {
+                return this.Post(address, str, contentType);
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="str">The string sent by the HTTP-server.</param>
+        /// <param name="contentType">Type of data to be sent.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="str"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="contentType"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">
+        /// parameter <paramref name="str"/> is an empty string.
+        /// -or-
+        /// parameter <paramref name="contentType"/> is an empty string.
+        /// </exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(Uri address, string str, string contentType)
+        {
+            return await Task.Run(() =>
+            {
+                return this.Post(address, str, contentType);
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="bytes">An array of bytes sent to the HTTP-server.</param>
+        /// <param name="contentType">Type of data to be sent.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="bytes"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="contentType"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">
+        /// parameter <paramref name="address"/> is an empty string.
+        /// -or-
+        /// parameter <paramref name="contentType"/> is an empty string.
+        /// </exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(string address, byte[] bytes, string contentType = "application/octet-stream")
+        {
+            return await Task.Run(() =>
+            {
+                return this.Post(address, bytes, contentType);
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="bytes">An array of bytes sent to the HTTP-server.</param>
+        /// <param name="contentType">Type of data to be sent.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="bytes"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="contentType"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">parameter <paramref name="contentType"/> is an empty string.</exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(Uri address, byte[] bytes, string contentType = "application/octet-stream")
+        {
+            return await Task.Run(() =>
+            {
+                return this.Post(address, bytes, contentType);
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="stream">The data stream sent HTTP-server.</param>
+        /// <param name="contentType">Type of data to be sent.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="stream"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="contentType"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">
+        /// parameter <paramref name="address"/> is an empty string.
+        /// -or-
+        /// parameter <paramref name="contentType"/> is an empty string.
+        /// </exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(string address, Stream stream, string contentType = "application/octet-stream")
+        {
+            return await Task.Run(() =>
+            {
+                return this.Post(address, stream, contentType);
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="stream">The data stream sent HTTP-server.</param>
+        /// <param name="contentType">Type of data to be sent.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="stream"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="contentType"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">parameter <paramref name="contentType"/> is an empty string.</exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(Uri address, Stream stream, string contentType = "application/octet-stream")
+        {
+            return await Task.Run(() =>
+            {
+                return this.Post(address, stream, contentType);
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="path">Path to the file from which the data will be sent to the HTTP-server.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="path"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">
+        /// parameter <paramref name="address"/> is an empty string.
+        /// -or-
+        /// parameter <paramref name="path"/> is an empty string.
+        /// </exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(string address, string path)
+        {
+            return await Task.Run(() =>
+            {
+                return this.Post(address, path);
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="path">Path to the file from which the data will be sent to the HTTP-server.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="path"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">parameter <paramref name="path"/> is an empty string.</exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(Uri address, string path)
+        {
+            return await Task.Run(() =>
+            {
+                return this.Post(address, path);
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="content">Content that is sent to the HTTP-server.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="content"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(string address, HttpContent content)
+        {
+            return await Task.Run(() =>
+            {
+                return this.Post(address, content);
+            });
+        }
+
+        /// <summary>
+        /// Sends the HTTP POST-search-server asynchronously.
+        /// </summary>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="content">Content that is sent to the HTTP-server.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// parameter <paramref name="address"/> equally <see langword="null"/>.
+        /// -or-
+        /// parameter <paramref name="content"/> equally <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> PostAsync(Uri address, HttpContent content)
+        {
+            return await Task.Run(() =>
+            {
+                return this.Post(address, content);
+            });
+        }
+
+        #endregion
         #endregion
 
         #region Raw
+        #region Normal
 
         /// <summary>
         /// It sends a HTTP-server inquiry.
@@ -1510,7 +1900,7 @@ namespace Shadynet.Http
             }
 
             #endregion
-            
+
             if (!address.IsAbsoluteUri)
                 address = GetRequestAddress(BaseAddress, address);
 
@@ -1552,6 +1942,46 @@ namespace Shadynet.Http
             }
         }
 
+        #endregion
+
+        #region Async
+
+        /// <summary>
+        /// It sends a HTTP-server inquiry, Asynchronously.
+        /// </summary>
+        /// <param name="method">HTTP-request method.</param>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="content">Content that is sent to the HTTP-server, or value <see langword="null"/>.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
+        /// <exception cref="System.ArgumentException">parameter <paramref name="address"/> is an empty string.</exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> RawAsync(HttpMethod method, string address, HttpContent content = null)
+        {
+            return await Task.Run(() =>
+            {
+                return this.Raw(method, address, content);
+            });
+        }
+
+        /// <summary>
+        /// It sends a HTTP-server inquiry, Asynchronously.
+        /// </summary>
+        /// <param name="method">HTTP-request method.</param>
+        /// <param name="address">Address Internet resource.</param>
+        /// <param name="content">Content that is sent to the HTTP-server, or value <see langword="null"/>.</param>
+        /// <returns>The object is designed to download a response from the HTTP-server.</returns>
+        /// <exception cref="System.ArgumentNullException">parameter <paramref name="address"/> equally <see langword="null"/>.</exception>
+        /// <exception cref="Shadynet.HttpException">Error when working with the HTTP-report.</exception>
+        public async Task<HttpResponse> RawAsync(HttpMethod method, Uri address, HttpContent content = null)
+        {
+            return await Task.Run(() =>
+            {
+                return this.Raw(method, address, content);
+            });
+        }
+
+        #endregion
         #endregion
 
         #region Adding temporal data query

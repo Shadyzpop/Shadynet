@@ -60,9 +60,9 @@ namespace Shadynet.Other
             private int _ptype { set; get; }
             #region Methods(Open)
 
-            public Task<string[]> ScrapeProxies(string[] urls)
+            public async Task<string[]> ScrapeProxies(string[] urls)
             {
-                return Task.Run(() =>
+                return await Task.Run(() =>
                 {
                     List<string> data = new List<string>();
                     string pattern = @"\d{1,3}(\.\d{1,3}){3}:\d{1,5}";
@@ -87,49 +87,52 @@ namespace Shadynet.Other
                 });
             }
 
-            public string[,] ProxyCheck(string proxy, string url, bool autoredirect, bool reconnect = false, int timeout = 0 , int ptype = 0)
+            public async Task<string[,]> ProxyCheck(string proxy, string url, bool autoredirect, bool reconnect = false, int timeout = 0 , int ptype = 0)
             {
-                string[,] data = new string[1,2];
-                try
+                return await Task.Run(() =>
                 {
-                    using (HttpRequest req = new HttpRequest(url))
+                    string[,] data = new string[1, 2];
+                    try
                     {
-                        req.UserAgent = HttpHelper.ChromeUserAgent();
-                        req.Cookies = new CookieCore(false);
-                        req.AllowAutoRedirect = autoredirect;
-                        req.Reconnect = reconnect;
-                        req.SslCertificateValidatorCallback = HttpHelper.AcceptAllCertificationsCallback;
-                        req.ConnectTimeout = timeout;
-
-                        #region proxyset
-                        switch (ptype)
+                        using (HttpRequest req = new HttpRequest(url))
                         {
-                            case 0:
-                                req.Proxy = HttpProxyClient.Parse(proxy);
-                                break;
-                            case 1:
-                                req.Proxy = Socks4ProxyClient.Parse(proxy);
-                                break;
-                            case 2:
-                                req.Proxy = Socks4aProxyClient.Parse(proxy);
-                                break;
-                            case 3:
-                                req.Proxy = Socks5ProxyClient.Parse(proxy);
-                                break;
-                            default:
-                                break;
+                            req.UserAgent = HttpHelper.ChromeUserAgent();
+                            req.Cookies = new CookieCore(false);
+                            req.AllowAutoRedirect = autoredirect;
+                            req.Reconnect = reconnect;
+                            req.SslCertificateValidatorCallback = HttpHelper.AcceptAllCertificationsCallback;
+                            req.ConnectTimeout = timeout;
+
+                            #region proxyset
+                            switch (ptype)
+                            {
+                                case 0:
+                                    req.Proxy = HttpProxyClient.Parse(proxy);
+                                    break;
+                                case 1:
+                                    req.Proxy = Socks4ProxyClient.Parse(proxy);
+                                    break;
+                                case 2:
+                                    req.Proxy = Socks4aProxyClient.Parse(proxy);
+                                    break;
+                                case 3:
+                                    req.Proxy = Socks5ProxyClient.Parse(proxy);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            #endregion
+                            var res = req.Get("/");
+                            data[0, 0] = proxy;
+                            data[0, 1] = res.ConnectionTime.ToString();
+                            return data;
                         }
-                        #endregion
-                        var res = req.Get("/");
-                        data[0, 0] = proxy;
-                        data[0, 1] = res.ConnectionTime.ToString();
-                        return data;
                     }
-                }
-                catch
-                {
-                    return null;
-                }
+                    catch
+                    {
+                        return null;
+                    }
+                });
             }
 
             #region MultiThreading

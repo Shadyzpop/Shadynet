@@ -33,6 +33,6 @@ using System.Resources;
 // You can specify all the values ​​or accept the default number of construction and revision number, 
 // Using the "*", as shown below:
 // [Assembly: AssemblyVersion ( "1.0 *.")]
-[assembly: AssemblyVersion("6.5.1.0")]
-[assembly: AssemblyFileVersion("6.5.1.0")]
+[assembly: AssemblyVersion("7.0.0.0")]
+[assembly: AssemblyFileVersion("7.0.0.0")]
 [assembly: NeutralResourcesLanguage("en")]
