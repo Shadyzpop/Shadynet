@@ -1,6 +1,6 @@
-# Shadynet [![Travis](https://api.travis-ci.org/Shadyzpop/Shadynet.svg)](https://travis-ci.org/Shadyzpop/Shadynet)
+# Shadynet 
 
-xNet Warper
+xNet Warper [![Travis](https://api.travis-ci.org/Shadyzpop/Shadynet.svg)](https://travis-ci.org/Shadyzpop/Shadynet) HttpRequests with ease
 
 <blockquote>
 <p><g-emoji alias="heavy_check_mark" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2714.png" ios-version="6.0">✔️</g-emoji> <strong>Shadynet</strong> — Class Library for .NET FrameWork.</p>
@@ -13,7 +13,7 @@ xNet Warper
 </ul>
 
 # Donate
-Bitcoin: 1Md3sNARxTRVzKrvBgT5ZC8KAabPVfSZkg
+Bitcoin: 1Nm8bVDfs1dwfCNPyd7QQ6fMux2Y5iwv6V
 
 # features - <em>OutDated</em> -
 <h2>new features added but not listed yet</h2>
@@ -28,7 +28,8 @@ using Shadynet.Other;
 
 <h2>Proxies(<em>HTTP, Socks4(a), Socks5, Chain</em>):</h2>
 <ul>
-<li>TryParse         : Converts a string to an instance of the Proxy type that fits the proxy and output the type of the <i>ProxyClient</i> required, and returns a value indicating whether the conversion was successful(<i>Boolean</i>).
+<li>TryParse         : Converts a string to an instance of the Proxy type that fits the proxy and output the type of the <i>ProxyClient</i> required, and returns a value indicating whether the conversion was successful(<i>Boolean</i>). </li>
+
 <li>CreateProxyClient: An instance of Type <i>ProxyClient</i> that uses the proxy provided(<i>input</i>) to Create a connection to the server with the type of proxy also Provided by the user from the <i>enumeration</i> of the class <i>ProxyType</i> in which contains:
 <ul>
 <b>
@@ -38,7 +39,8 @@ using Shadynet.Other;
 <li>Socks5</li>
 <li>Chain</li>
 </b>
-</ul></li>
+</ul>
+</li>
 </ul>
 
 <h2>HttpRequest:</h2>
@@ -52,9 +54,10 @@ using Shadynet.Other;
 <li>DELETE</li>
 <li>POST</li>
 <li>PUT</li>
-<li>OPTIONS</i>
+<li>OPTIONS</li>
 </b>
-</ul></li>
+</ul>
+</li>
 </ul>
 
 <h2>HttpResponse:</h2>
@@ -69,7 +72,7 @@ using Shadynet.Other;
 <ul>
 <li>Betweenstring: Gets a string inside any type of string(<i>input</i>) that is between two strings(<i>input</i>).</li>
 <li>BetweenUrl   : Does the same as <i>Betweenstring</i> but doesnt require a source string, instead a url to get the source code from.</li>
-<li>Cookie       : Returns raw value of a cookie that is requested(<i>input</i>) from a url(<i>input</i>).<
+<li>Cookie       : Returns raw value of a cookie that is requested(<i>input</i>) from a url(<i>input</i>).</li>
 </ul>
 
 <h2>Html:</h2>
@@ -93,14 +96,15 @@ using (var request = new HttpRequest("site.com"))
 
     // We will parse the html data depending on the size here
     var data = HTMLparse(response.ToString(), "href", "sizes", "180x180", "link", 2);  
-    // element types range from 0-2, where 0 is where the element ends with "<element/>", 1 ends with "/>" and 2 ends with ">" 
+    // element types range from 0-2, where 0 is where the element ends with "Element/>", 1 ends with "/>" and 2 ends with ">" 
 
     // in the end data will hold this string "/apple-touch-icon-180x180.png"
 }
-</pre></li>
+</pre>
+</li>
 <li>ReplaceEntities : Replaces in a string HTML-entities to represent their characters.</li>
 <li>ReplaceUnicode  : Replaces in Unicode-line entities to represent their characters.</li>
-<li>Substring       : Retrieves a substring from a string.
+<li>Substring       : Retrieves a substring from a string.</li>
 <li>LastSubstring   : Retrieves the last substring from a string.</li>
 <li>Substrings      : Retrieves a substrings from a string.</li>
 </ul>
