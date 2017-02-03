@@ -7,7 +7,7 @@ using System.Resources;
 // Set of attributes. Change these attribute values ​​to modify the information,
 // Associated with an assembly.
 [assembly: AssemblyTitle("Shadynet")]
-[assembly: AssemblyDescription("A .net library used alternative to the system net with the usage of proxies and supported Multi-threading.")]
+[assembly: AssemblyDescription("A .net class library for http/s with proxies and multi-threading support.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Shadyzpop / Shadyz")]
 [assembly: AssemblyProduct("Shadynet")]
