@@ -699,10 +699,5 @@ namespace Shadynet.Threading
                 throw new ObjectDisposedException("MultiThreading<TProgress>");
             }
         }
-
-        internal void Run(Func<string, RequestParams, HttpResponse> get)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
