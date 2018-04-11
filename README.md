@@ -20,9 +20,6 @@ xNet Warper
 <li>protocols <em>HTTP 1.0/1.1</em>: <em>keep-alive, gzip, deflate, chunked, SSL, proxies and more</em>.</li>
 </ul>
 
-# Donate
-Bitcoin: 1Nm8bVDfs1dwfCNPyd7QQ6fMux2Y5iwv6V
-
 # Wiki
 Refer to the [Wiki](https://github.com/Shadyzpop/Shadynet/wiki/) for the examples and the features.
 
