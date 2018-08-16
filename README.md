@@ -1,6 +1,4 @@
-# Shadynet 
-
-xNet Warper 
+# Shadynet
 
 ### [![Travis](https://api.travis-ci.org/Shadyzpop/Shadynet.svg)](https://travis-ci.org/Shadyzpop/Shadynet)
 
